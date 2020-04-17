@@ -1,0 +1,14 @@
+{
+	"appName": {"message": "节假日历"},
+	"appShortName": {"message": "节假日历"},
+	"appDescription": {"message": "这是节假日历的描述了"},
+	"week0Name": {"message": "周日"},
+	"week1Name": {"message": "周一"},
+	"week2Name": {"message": "周二"},
+	"week3Name": {"message": "周三"},
+	"week4Name": {"message": "周四"},
+	"week5Name": {"message": "周五"},
+	"week6Name": {"message": "周六"},
+	"xiaoming": {"message": "小明!"},
+	"tool": {"message": "工具"}
+}
