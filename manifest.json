@@ -16,9 +16,6 @@
     "notifications",
     "geolocation"
   ],
-  "background": {
-    "page": "background/index.html"
-  },
   "default_locale": "zh_CN",
   "homepage_url": "https://github.com/gaoming13/calendar-chrome-extension"
 }

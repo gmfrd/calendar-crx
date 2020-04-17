@@ -54,32 +54,32 @@ var lib = {
     let varWeek = firstDayOfWeek;
     // 负2月
     for (let i = f2StartDay; i <= f2DayNum; i++) {
-      const isCurDay = now.year === f2YearMonth.year && now.month === f2YearMonth.month  && now.day === i;
-      dayArr.push({ seq: 1, isCurDay, year: f2YearMonth.year, month: f2YearMonth.month, day: i, week: varWeek });
+      const isToday = now.year === f2YearMonth.year && now.month === f2YearMonth.month  && now.day === i;
+      dayArr.push({ seq: 1, isToday, year: f2YearMonth.year, month: f2YearMonth.month, day: i, week: varWeek });
       varWeek = (varWeek + 1) % 7;
     }
     // 负1月
     for (let i = 1; i <= f1DayNum; i++) {
-      const isCurDay = now.year === f1YearMonth.year && now.month === f1YearMonth.month  && now.day === i;
-      dayArr.push({ seq: 2, isCurDay, year: f1YearMonth.year, month: f1YearMonth.month, day: i, week: varWeek });
+      const isToday = now.year === f1YearMonth.year && now.month === f1YearMonth.month  && now.day === i;
+      dayArr.push({ seq: 2, isToday, year: f1YearMonth.year, month: f1YearMonth.month, day: i, week: varWeek });
       varWeek = (varWeek + 1) % 7;
     }
     // 当月
     for (let i = 1; i <= z0DayNum; i++) {
-      const isCurDay = now.year === year && now.month === month  && now.day === i;
-      dayArr.push({ seq: 3, isCurDay, year, month, day: i, week: varWeek });
+      const isToday = now.year === year && now.month === month  && now.day === i;
+      dayArr.push({ seq: 3, isToday, year, month, day: i, week: varWeek });
       varWeek = (varWeek + 1) % 7;
     }
     // 正1月
     for (let i = 1; i <= z1DayNum; i++) {
-      const isCurDay = now.year === z1YearMonth.year && now.month === z1YearMonth.month  && now.day === i;
-      dayArr.push({ seq: 4, isCurDay, year: z1YearMonth.year, month: z1YearMonth.month, day: i, week: varWeek });
+      const isToday = now.year === z1YearMonth.year && now.month === z1YearMonth.month  && now.day === i;
+      dayArr.push({ seq: 4, isToday, year: z1YearMonth.year, month: z1YearMonth.month, day: i, week: varWeek });
       varWeek = (varWeek + 1) % 7;
     }
     // 正2月
     for (let i = 1; i <= z2EndDay; i++) {
-      const isCurDay = now.year === z2YearMonth.year && now.month === z2YearMonth.month  && now.day === i;
-      dayArr.push({ seq: 5, isCurDay, year: z2YearMonth.year, month: z2YearMonth.month, day: i, week: varWeek });
+      const isToday = now.year === z2YearMonth.year && now.month === z2YearMonth.month  && now.day === i;
+      dayArr.push({ seq: 5, isToday, year: z2YearMonth.year, month: z2YearMonth.month, day: i, week: varWeek });
       varWeek = (varWeek + 1) % 7;
     }
     return { year, month, dayArr, z1Line }

@@ -1,14 +1,115 @@
 html, body { padding: 0; margin: 0; }
-.main {
-  width: 400px;
-  height: 400px;
+.head { position: relative; height: 30px; overflow: auto; }
+.head > .date {
+  font-size: 16px;
+  line-height: 20px;
+  color: #000;
+  text-align: center;
+  margin-top: 5px;
 }
-.meta { width: 280px; overflow: auto; }
-.meta > .item { width: 40px; height: 40px; float: left; text-align: center; font-size: 12px; }
+.head > .btn {
+  position: absolute;
+  top: 0;
+  right: 35px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background: #fff;
+  transition: background-color 100ms linear;
+}
+.head > .btn > i {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url(../icons/arrow-up.svg) no-repeat;
+  background-size: contain;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.head > .btn.next {
+  right: 0;
+}
+.head > .btn.next > i {
+  background-image: url(../icons/arrow-down.svg);
+}
+.head > .btn:hover {
+  background: #f1f3f4;
+}
+.head > .btn:active {
+  background: #e8eaed
+}
+.head > .btn:active:hover {
+  background: #dadce0
+}
+
+
+
+.menu { overflow: auto; }
+.menu > .item {
+  width: 50px;
+  height: 40px;
+  float: left;
+}
+.menu > .item > .t1 {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  line-height: 20px;
+  margin-top: 10px;
+}
+.menu > .item.weekend > .t1 {
+  color: #e02d2d;
+}
 .calendar { height: 320px; overflow: hidden; }
-.list { width: 280px; transform: translate3d(0px, -200px, 0px); }
-.list.animate { transition: all .3s; }
-.list > .item { width: 40px; height: 40px; float: left; text-align: center; font-size: 12px; color: #aaa; }
-.list > .item.now-month { color: #000; }
-.list > .item.cur-day { color: red; }
-.list > .item:hover { background: #feeff0; }
+.list { width: 350px; transform: translate3d(0px, -200px, 0px); }
+.list.animate { transition: all .3s ease-in-out; }
+.list > .item {
+  position: relative;
+  box-sizing: border-box;
+  width: 50px;
+  height: 40px;
+  float: left;
+  text-align: center;
+  cursor: pointer;
+  transition: all 100ms linear;
+  border-top: 1px solid #f5f5f5;
+  border-right: 1px solid #f5f5f5;
+}
+.list > .item > .t1 { color: #bfbfbf; font-size: 16px; line-height: 20px; margin-top: 2px; }
+.list > .item > .t2 { color: #bfbfbf; font-size: 12px; line-height: 14px; }
+.list > .item > .t3 {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  background: url(../icons/104d.png) no-repeat;
+  background-size: contain;
+  opacity: 0.5;
+}
+.list > .item > .t4 {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  background: url(../icons/100d.png) no-repeat;
+  background-size: contain;
+  opacity: 0.5;
+}
+.list > .item > .t5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: red;
+}
+.list > .item.now-month {  }
+.list > .item.now-month > .t1 { color: #000; }
+.list > .item.now-month > .t2 { color: #666; }
+.list > .item.now-month.weekend > .t1 { color: #e02d2d; }
+.list > .item.today { background: #1a73e8; }
+.list > .item.today > .t1 { color: #fff; }
+.list > .item:hover { background: #f1f3f4; }
+.tip { font-size: 12px; color: #333; line-height: 20px; padding-top: 4px; padding-bottom: 4px; border-top: 1px solid #f5f5f5; text-indent: 10px; }
