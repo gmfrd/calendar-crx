@@ -1,0 +1,7 @@
+.vscode
+.DS_Store
+node_modules
+dist/*.map
+coverage
+codecov.yml
+package-lock.json

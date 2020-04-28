@@ -1,15 +1,14 @@
 html, body { padding: 0; margin: 0; }
-.head { position: relative; height: 30px; overflow: auto; }
+.head { position: relative; height: 50px; overflow: auto; }
 .head > .date {
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 28px;
+  line-height: 50px;
   color: #000;
   text-align: center;
-  margin-top: 5px;
 }
 .head > .btn {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 35px;
   width: 30px;
   height: 30px;
@@ -72,8 +71,11 @@ html, body { padding: 0; margin: 0; }
   text-align: center;
   cursor: pointer;
   transition: all 100ms linear;
+  border: 1px solid #fff;
+  /*
   border-top: 1px solid #f5f5f5;
   border-right: 1px solid #f5f5f5;
+  */
 }
 .list > .item > .t1 { color: #bfbfbf; font-size: 16px; line-height: 20px; margin-top: 2px; }
 .list > .item > .t2 { color: #bfbfbf; font-size: 12px; line-height: 14px; }
@@ -103,13 +105,25 @@ html, body { padding: 0; margin: 0; }
   left: 0;
   width: 12px;
   height: 12px;
-  background: red;
 }
 .list > .item.now-month {  }
 .list > .item.now-month > .t1 { color: #000; }
 .list > .item.now-month > .t2 { color: #666; }
 .list > .item.now-month.weekend > .t1 { color: #e02d2d; }
-.list > .item.today { background: #1a73e8; }
-.list > .item.today > .t1 { color: #fff; }
+.list > .item.today { background: #d2e3fc; }
+.list > .item.today > .t1 {  }
+.list > .item.today:hover {
+  background: #aecbfa;
+}
 .list > .item:hover { background: #f1f3f4; }
+.list > .item:hover {
+  background: #f1f3f4;
+}
+.list > .item:active {
+  background: #e8eaed
+}
+.list > .item:active:hover {
+  background: #dadce0
+}
+
 .tip { font-size: 12px; color: #333; line-height: 20px; padding-top: 4px; padding-bottom: 4px; border-top: 1px solid #f5f5f5; text-indent: 10px; }

@@ -1,4 +1,4 @@
-var app = {
+const app = {
   // 当前显示的年月
   year: 0,
   month: 0,
@@ -14,7 +14,7 @@ var app = {
   calendarIsInAnimate: false,
   // 初始化
   init: function() {
-    var now = lib.getNow();
+    const now = lib.getNow();
     this.year = now.year;
     this.month = now.month;
     // dom
@@ -32,10 +32,10 @@ var app = {
   },
   // 渲染日历星期菜单
   renderCalendarMenu: function() {
-    var week = this.firstDayOfWeek;
-    var tpl = '';
+    let week = this.firstDayOfWeek;
+    let tpl = '';
     for (let i = 1; i <= 7; i++) {
-      let classArr = ['item'];
+      const classArr = ['item'];
       [0, 6].includes(week) && classArr.push('weekend');
       tpl += `<div class="${classArr.join(' ')}">`;
       tpl += `<div class="t1">${chrome.i18n.getMessage('week'+week)}</div>`;
@@ -50,7 +50,7 @@ var app = {
     this.calendarData = lib.getCalendar(this.year, this.month, this.firstDayOfWeek);
     let tpl = '';
     for (const v of this.calendarData.dayArr) {
-      let classArr = ['item', 'seq' + v.seq];
+      const classArr = ['item', 'seq' + v.seq];
       v.seq === 3 && classArr.push('now-month');
       v.isToday && classArr.push('today');
       [0, 6].includes(v.week) && classArr.push('weekend');
@@ -74,7 +74,7 @@ var app = {
     this.domCalendarList.removeClass('animate');
     this.domCalendarList.html(tpl);
     this.domCalendarList.css('transform', '');
-    this.domCalendarDate.html(`${this.calendarData.year}-${this.calendarData.month}`);
+    this.domCalendarDate.html(`${this.calendarData.year}年${this.calendarData.month}月`);
   },
   // 切换日历月份(上一月:-1,下一月:1)
   changeCalendarMonth: function(direction = 0) {
@@ -94,7 +94,7 @@ var app = {
   },
   // 绑定日历上下月切换事件
   bindMonthChangeEvent: function() {
-    var self = this;
+    const self = this;
     // 上月
     this.domBtnPreMonth.on('click', function() {
       const ym = lib.getRelativeMonth(self.year, self.month, -1);

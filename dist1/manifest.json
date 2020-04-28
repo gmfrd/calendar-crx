@@ -6,7 +6,7 @@
   "short_name": "__MSG_appShortName__",
   "browser_action": {
     "default_title": "__MSG_appName__",
-    "default_icon": "icons/logo.png",
+    "default_icon": "icons/100d.png",
     "default_popup": "popup/index.html"
   },
   "permissions": [
