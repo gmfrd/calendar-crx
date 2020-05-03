@@ -243,7 +243,7 @@ export default {
       }
       if (day !== false) {
         for (const v of this.caDayArr) {
-          if (v.d === day) {
+          if (v.Y === year && v.m === month && v.d === day) {
             this.selectedDay = v;
             break;
           }
