@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{12:function(o,n,s){"use strict";console.log("background.js")}},[[12,0]]]);

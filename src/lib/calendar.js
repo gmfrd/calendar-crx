@@ -73,5 +73,13 @@ export function getDay(Y, m, d, w) {
   const M = (m < 10 ? '0' : '') + m;
   const D = (d < 10 ? '0' : '') + d;
   const v = `${Y}${M}${D}`;
-  return {Y, m, d, w, M, D, v};
+  return {
+    Y, // 年
+    m, // 月
+    d, // 日
+    w, // 周(0-6)
+    M, // 月(带0)
+    D, // 日(带0)
+    v, // 年月日
+  };
 }

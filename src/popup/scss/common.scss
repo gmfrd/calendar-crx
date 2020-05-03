@@ -1,0 +1,45 @@
+html {
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
+  user-select: none;
+  background: #fff;
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  font-weight: 400;
+  -webkit-tap-highlight-color: transparent;
+}
+input,button,select,textarea {
+  outline: none;
+  -webkit-appearance: none;
+}
+a {
+  text-decoration: none;
+}
+.row {
+  &:after,
+  &:before {
+    display: table;
+    content: ' ';
+  }
+  &:after {
+    clear: both;
+  }
+  & > .col {
+    float: left;
+    display: inline-block;
+    position: relative;
+    min-height: 1px; /* no */
+    &.r {
+      float: right;
+    }
+  }
+}
