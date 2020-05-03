@@ -62,7 +62,7 @@ export function getCalendar(year, month, firstDayOfWeek = 1) {
   const weekArr = [];
   varWeek = firstDayOfWeek;
   for (let i = 1; i <= 7; i++) {
-    weekArr.push(i);
+    weekArr.push(varWeek);
     varWeek = (varWeek + 1) % 7;
   }
   return {year, month, dayArr, weekArr};

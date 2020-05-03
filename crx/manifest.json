@@ -6,15 +6,15 @@
   "short_name": "__MSG_appShortName__",
   "browser_action": {
     "default_title": "__MSG_appName__",
-    "default_icon": "icon/100d.png",
+    "default_icon": "icon/logo.png",
     "default_popup": "dist/popup.html"
   },
+  "background": {
+    "page": "dist/background.html"
+  },
   "permissions": [
-    "activeTab",
     "storage",
-    "tabs",
-    "notifications",
-    "geolocation"
+    "https://diary8.com/holiday/"
   ],
   "default_locale": "zh_CN",
   "homepage_url": "https://github.com/gaoming13/calendar-chrome-extension"
