@@ -58,41 +58,29 @@
           </div>
         </div>
       </div>
-      <div class="box-right">
-        <div class="t1">
-          <div class="wrap" :class="{on: selectedDay.event !== '' }">
-            <div class="b1">{{ selectedDay.Y }}年{{ selectedDay.M }}月</div>
-            <div class="b2">{{ selectedDay.D }}日</div>
-            <div v-if="selectedDay.event !== ''" class="b3" v-html="selectedDay.eventArr.join('<br>')" />
-            <div v-else class="b3">{{ selectedDay.lMonth }}月{{ selectedDay.lDate }}</div>
-          </div>
-        </div>
-        <div class="t2">{{ selectedDay.gzYear }}年【{{ selectedDay.animal }}年】</div>
-        <div class="t2">{{ selectedDay.gzMonth }}月{{ selectedDay.gzDate }}日</div>
-        <div class="line" />
-        <div class="t3">
-          <div class="item">
-            <div class="b1">宜</div>
-            <div class="b2" v-html="selectedDay.suit.split('.').join('<br>')" />
-          </div>
-          <div class="item">
-            <div class="b1">忌</div>
-            <div class="b2" v-html="selectedDay.avoid.split('.').join('<br>')" />
-          </div>
-        </div>
-      </div>
+      <!-- 右侧当日信息卡片 -->
+      <PartDayCard class="box-right" :selected-day="selectedDay" />
     </div>
   </div>
 </template>
 
 <script>
-import * as calendar from '../../lib/calendar';
+import * as calendar from '../../../lib/calendar';
+import PartDayCard from './_dayCard.vue';
+import * as api from '../../../lib/api';
 
 export default {
+  components: {
+    PartDayCard,
+  },
+  props: {
+    // 每周起始周几
+    firstDayOfWeek: {type: Number, required: true},
+  },
   data: () => {
     return {
       // 周枚举
-      enumWeek: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      enumWeek: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
       // 最小年份
       minYear: 1950,
       // 最大年份
@@ -113,10 +101,6 @@ export default {
       today: null,
       // 选中的天
       selectedDay: null,
-      // 每周起始周几
-      firstDayOfWeek: 0,
-      // 在请求中的年份
-      pending: {},
     };
   },
   created() {
@@ -132,44 +116,9 @@ export default {
     this.toCalendar(this.today.Y, this.today.m, this.today.d);
   },
   methods: {
-    // 获取年份信息
-    async getYearInfo(Y) {
-      const cacheKey = 'CN_' + Y;
-      return new Promise((resolve) => {
-        if (typeof window.localStorage.getItem(cacheKey) === 'string') {
-          resolve(JSON.parse(window.localStorage.getItem(cacheKey)));
-          return;
-        }
-        if (this.pending[Y] !== true) {
-          this.pending[Y] = true;
-          fetch('https://diary8.com/holiday/CN_' + Y + '.json').then((res) => {
-            res.json().then((list) => {
-              window.localStorage.setItem(cacheKey, JSON.stringify(list));
-              resolve(list);
-            });
-            delete this.pending[Y];
-          }).catch((err) => {
-            delete this.pending[Y];
-            resolve(false);
-          });
-        } else {
-          const timer1 = setInterval(() => {
-            if (this.pending[Y] !== true) {
-              clearInterval(timer1);
-              // 等待结果
-              if (typeof window.localStorage.getItem(cacheKey) === 'string') {
-                resolve(JSON.parse(window.localStorage.getItem(cacheKey)));
-              } else {
-                resolve(false);
-              }
-            }
-          }, 300);
-        }
-      });
-    },
     // 获取某日的额外信息
     getDayExt(Y, M, D, callback) {
-      this.getYearInfo(Y).then((res) => {
+      api.getCalRegionYearData('cn', Y).then((res) => {
         const key = `D${M}${D}`;
         if (res && res[key]) {
           const v = res[key];
@@ -263,6 +212,7 @@ export default {
 .box-main {
   display: flex;
   width: 535px;
+  height: 435px;
   border: 2px solid #37bc9b;
   border-right: 0;
   .box-left {
@@ -417,13 +367,13 @@ export default {
             left: -1px;
             width: 16px;
             height: 16px;
-            background: url(./../icon/jia.png) no-repeat;
+            background: url(./../../icon/jia.png) no-repeat;
             background-size: contain;
             color: #fff;
             z-index: 1;
             opacity: 0.2;
             &.ban {
-              background-image: url(./../icon/ban.png);
+              background-image: url(./../../icon/ban.png);
             }
           }
           &.month {
@@ -447,6 +397,9 @@ export default {
             &.today {
               border-color: #fb0;
               background: #fb0;
+              & > .t1 {
+                color: #fff;
+              }
             }
           }
           &.jia {
@@ -467,96 +420,8 @@ export default {
       }
     }
   }
-  .box-right {
-    width: 130px;
-    background: #37bc9b;
-    & > .t1 {
-      height: 120px;
-      & > .wrap {
-        width: 110px;
-        margin: 10px auto;
-        background: #ff6c7a;
-        border-radius: 3px;
-        box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1), -1px 2px 5px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        & > .b1 {
-          font-size: 16px;
-          color: #fff;
-          height: 24px;
-          border-radius: 4px;
-        }
-        & > .b2 {
-          font-size: 26px;
-          background: #fff;
-          color: #000;
-          padding-top: 6px;
-          padding-bottom: 6px;
-        }
-        & > .b3 {
-          line-height: 18px;
-          max-height: 36px;
-          overflow: hidden;
-          background: #fff;
-          border-radius: 0px 0px 4px 4px;
-          color: #000;
-          padding-bottom: 8px;
-        }
-        &.on {
-          & > .b2 {
-            color: #ed5564;
-          }
-          & > .b3 {
-            color: #ed5564;
-          }
-        }
-      }
-    }
-    & > .t2 {
-      line-height: 20px;
-      color: #fff;
-      text-align: center;
-    }
-    & > .line {
-      width: 110px;
-      height: 2px;
-      background: #72d2ba;
-      margin: 0 auto;
-      margin-top: 8px;
-      margin-bottom: 8px;
-      border-radius: 2px;
-    }
-    & > .t3 {
-      display: flex;
-      color: #fff;
-      & > .item {
-        height: 210px;
-        flex: 1;
-        text-align: center;
-        & > .b1 {
-          font-size: 24px;
-          line-height: 30px;
-          margin-bottom: 4px;
-          text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1);
-        }
-        & > .b2 {
-          font-size: 14px;
-          line-height: 18px;
-          height: 180px;
-          overflow: hidden;
-        }
-      }
-    }
-  }
   &.on {
     border-color: #ed5564;
-    .box-right {
-      background: #ed5564;
-      & > .line {
-        background: #ff6c7a;
-      }
-    }
   }
 }
-
-
 </style>
