@@ -1,7 +1,7 @@
 {
-	"appName": {"message": "节假日历"},
+	"appName": {"message": "节假日历 - 中国节假日信息"},
 	"appShortName": {"message": "节假日历"},
-	"appDescription": {"message": "这是节假日历的描述了"},
+	"appDescription": {"message": "提供最新中国节假日信息，支持农历日期显示。界面干净整洁，一目了然，随时了解日期安排"},
 	"week0": {"message": "周日"},
 	"week1": {"message": "周一"},
 	"week2": {"message": "周二"},

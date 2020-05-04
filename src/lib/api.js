@@ -2,7 +2,8 @@ import * as storage from './storage';
 
 // API接口地址
 // const API_URI = 'http://127.0.0.1:8888/holiday/dist';
-const API_URI = 'https://diary8.com/holiday';
+// const API_URI = 'https://diary8.com/holiday';
+const API_URI = 'https://gaoming13.oss-cn-hangzhou.aliyuncs.com/holiday';
 
 // 获取年份信息
 // 国家地区:http://www1.jctrans.com/tool/dm.htm

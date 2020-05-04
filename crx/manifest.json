@@ -22,7 +22,7 @@
   },
   "permissions": [
     "storage",
-    "*://diary8.com/*"
+    "*://gaoming13.oss-cn-hangzhou.aliyuncs.com/*"
   ],
   "default_locale": "zh_CN",
   "homepage_url": "https://github.com/gaoming13/calendar-chrome-extension"
