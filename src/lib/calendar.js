@@ -68,6 +68,26 @@ export function getCalendar(year, month, firstDayOfWeek = 1) {
   return {year, month, dayArr, weekArr};
 }
 
+// 获取日本年号
+export function getJpNianHao(y) {
+  const daiArr = [
+    {start: 1926, name: '昭和'},
+    {start: 1989, name: '平成'},
+    {start: 2019, name: '令和'},
+  ];
+  let d1 = null;
+  for (const dai of daiArr) {
+    if (y >= dai.start) {
+      d1 = dai;
+    }
+  }
+  if (d1 === null) {
+    return '';
+  }
+  const diff = y - d1.start + 1;
+  return d1.name + (diff === 1 ? '元' : diff) + '年';
+}
+
 // 获取某天的信息
 export function getDay(Y, m, d, w) {
   const M = (m < 10 ? '0' : '') + m;

@@ -3,7 +3,7 @@ import Yaml from 'yaml';
 import request from 'request';
 import iconv from 'iconv-lite';
 
-// 获取中国节日
+// 获取中国节日(百度搜索日历的控件)
 async function getCNAll() {
   for (let year = 1950; year <= 2100; year++) {
     const obj = {};
@@ -45,10 +45,9 @@ async function getCNAll() {
         }
       }
     }
-    fs.writeFileSync('./holiday/src/CN_'+year+'.yaml', Yaml.stringify(obj));
+    fs.writeFileSync('../../holiday/src/CN_'+year+'.yaml', Yaml.stringify(obj));
   }
 }
-
 async function getData(url) {
   return new Promise((resolve) => {
     request(url)
