@@ -1,0 +1,166 @@
+D0101:
+  event:
+    - New Year's Day
+  status: 0
+D0117:
+  event:
+    - Martin Luther King Day
+  status: 0
+D0124:
+  event:
+    - Belly Laugh Day
+  status: 0
+D0202:
+  event:
+    - Groundhog Day
+  status: 0
+D0212:
+  event:
+    - Lincoln's Birthday
+  status: 0
+D0214:
+  event:
+    - Valentine's Day
+  status: 0
+D0221:
+  event:
+    - Presidents Day and Washington's Birthday
+  status: 0
+D0308:
+  event:
+    - Mardi Gras Carnival
+  status: 0
+D0313:
+  event:
+    - Daylight Saving
+  status: 0
+D0317:
+  event:
+    - St. Patrick's Day
+  status: 0
+D0401:
+  event:
+    - April Fool's Day
+  status: 0
+D0422:
+  event:
+    - Good Friday
+    - Earth Day
+  status: 0
+D0424:
+  event:
+    - Easter
+  status: 0
+D0425:
+  event:
+    - Easter Monday
+  status: 0
+D0505:
+  event:
+    - Cinco de Mayo
+  status: 0
+D0508:
+  event:
+    - Mother's Day
+  status: 0
+D0521:
+  event:
+    - Armed Forces Day
+  status: 0
+D0530:
+  event:
+    - Memorial Day
+  status: 0
+D0612:
+  event:
+    - Pentecost
+  status: 0
+D0613:
+  event:
+    - Pentecost Monday
+  status: 0
+D0614:
+  event:
+    - Flag Day
+  status: 0
+D0619:
+  event:
+    - Father's Day
+  status: 0
+D0704:
+  event:
+    - Independence Day
+  status: 0
+D0724:
+  event:
+    - Parents' Day
+  status: 0
+D0905:
+  event:
+    - Labor Day
+  status: 0
+D0911:
+  event:
+    - Grandparents' Day
+    - Patriot Day or September 11th
+  status: 0
+D0916:
+  event:
+    - Stepfamily Day
+  status: 0
+D0917:
+  event:
+    - Citizenship Day
+  status: 0
+D0923:
+  event:
+    - Native American Day
+  status: 0
+D1010:
+  event:
+    - Columbus Day
+  status: 0
+D1015:
+  event:
+    - Sweetest Day
+  status: 0
+D1017:
+  event:
+    - Boss's Day
+  status: 0
+D1031:
+  event:
+    - Halloween
+  status: 0
+D1106:
+  event:
+    - Daylight Saving
+  status: 0
+D1111:
+  event:
+    - Veterans' Day
+  status: 0
+D1124:
+  event:
+    - Thanksgiving
+  status: 0
+D1125:
+  event:
+    - Black Friday
+  status: 0
+D1128:
+  event:
+    - Cyber Monday
+  status: 0
+D1207:
+  event:
+    - Pearl Harbor Remembrance Day
+  status: 0
+D1225:
+  event:
+    - Christmas Day
+  status: 0
+D1231:
+  event:
+    - New Year's Eve
+  status: 0

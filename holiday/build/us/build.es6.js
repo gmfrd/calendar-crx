@@ -2,7 +2,7 @@ import fs from 'fs';
 import Yaml from 'yaml';
 
 for (let year = 1950; year <= 2100; year++) {
-  const file = fs.readFileSync('./holiday/src/JP_'+year+'.yaml', 'utf8');
+  const file = fs.readFileSync('./holiday/src/US_'+year+'.yaml', 'utf8');
   const res = Yaml.parse(file);
   const keyArr = Object.keys(res);
   const list = {};
@@ -11,9 +11,7 @@ for (let year = 1950; year <= 2100; year++) {
     list[key] = [
       v.event, // 事件
       v.status, // 0正常1假2班
-      v.gzDate, // 干支日
-      v.liuYao, // 六曜
     ];
   }
-  fs.writeFileSync('./holiday/dist/JP_'+year+'.json', JSON.stringify(list));
+  fs.writeFileSync('./holiday/dist/US_'+year+'.json', JSON.stringify(list));
 }
