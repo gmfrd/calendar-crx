@@ -1,11 +1,14 @@
-import * as Term from './Term';
+import * as Term from './term';
 
 // 天干
 const enumGan = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
 // 地支
 const enumZhi = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 // 对应地支十二生肖
-const enumAnimal = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'];
+const enumAnimal = {
+  cn: ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'],
+  tw: ['鼠', '牛', '虎', '兔', '龍', '蛇', '馬', '羊', '猴', '雞', '狗', '豬'],
+};
 
 /**
  * 获取公历所在的干支年月
@@ -78,11 +81,12 @@ export function getGzDayName(year, month, day) {
 /**
  * 获取干支年生肖
  * @param {int} gzYear 干支所在年(默认以立春前的公历年作为基数)
+ * @param {string} lang 语言
  * @return {int}
 */
-export function getAnimal(gzYear) {
+export function getAnimal(gzYear, lang = 'cn') {
   const num = gzYear - 1890 + 25;
-  return enumAnimal[num%12];
+  return enumAnimal[lang][num%12];
 }
 
 /**
@@ -90,9 +94,10 @@ export function getAnimal(gzYear) {
  * @param {int} year 公历年
  * @param {int} month 公历月
  * @param {int} day 公历日
+ * @param {string} lang 语言(en,cn,tw,jp)
  * @return {object}
  */
-export function getDay(year, month, day) {
+export function getDay(year, month, day, lang = 'cn') {
   // 干支年月
   const {gzYear, gzMonth} = getGzYearMonth(year, month, day);
   return {
@@ -103,7 +108,7 @@ export function getDay(year, month, day) {
     // 干支日名称
     gzDayName: getGzDayName(year, month, day),
     // 生肖
-    animal: getAnimal(gzYear),
+    animal: getAnimal(gzYear, lang),
   };
 }
 

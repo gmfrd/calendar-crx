@@ -1,8 +1,12 @@
 <template>
   <div class="app">
     <template v-if="calIsShow">
-      <!-- 中国大陆 -->
+      <!-- 中国 -->
       <CalCn v-if="region === 'cn'" :first-day-of-week="firstDayOfWeek" />
+      <!-- 台湾 -->
+      <CalTw v-if="region === 'tw'" :first-day-of-week="firstDayOfWeek" />
+      <!-- 香港 -->
+      <CalHk v-if="region === 'hk'" :first-day-of-week="firstDayOfWeek" />
     </template>
     <!-- 设置页面 -->
     <Setting v-if="settingIsShow" @close="settingClose" />
@@ -16,16 +20,20 @@
 <script>
 import * as storage from '../lib/storage';
 import CalCn from './view/cn/index.vue';
+import CalTw from './view/tw/index.vue';
+import CalHk from './view/hk/index.vue';
+import PartMenu from './view/_menu.vue';
 import Setting from './view/setting.vue';
 import About from './view/about.vue';
-import PartMenu from './view/_menu.vue';
 
 export default {
   components: {
     CalCn,
+    CalTw,
+    CalHk,
+    PartMenu,
     Setting,
     About,
-    PartMenu,
   },
   data: () => {
     return {

@@ -1,5 +1,8 @@
 // 二十四节气(太阳历)
-const enumTerm = ['小寒', '大寒', '立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪', '冬至'];
+const enumTerm = {
+  cn: ['小寒', '大寒', '立春', '雨水', '惊蛰', '春分', '清明', '谷雨', '立夏', '小满', '芒种', '夏至', '小暑', '大暑', '立秋', '处暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪', '冬至'],
+  tw: ['小寒', '大寒', '立春', '雨水', '驚蟄', '春分', '清明', '穀雨', '立夏', '小滿', '芒種', '夏至', '小暑', '大暑', '立秋', '處暑', '白露', '秋分', '寒露', '霜降', '立冬', '小雪', '大雪', '冬至'],
+};
 
 /**
  * 二十四节气数据
@@ -24,9 +27,10 @@ export function getTerm(year, nth) {
 /**
  * 获取公历年一年的二十四节气
  * @param {int} year 公历年
+ * @param {string} lang 语言
  * @return {array}
  */
-export function getYearTerm(year) {
+export function getYearTerm(year, lang = 'cn') {
   const list = [];
   let month = 0;
   for (let i=0; i < 24; i++) {
@@ -34,8 +38,28 @@ export function getYearTerm(year) {
     if (i%2==0) month++;
     list.push({
       ds: `${year}${(month < 10 ? '0' : '') + month}${(day < 10 ? '0' : '') + day}`,
-      ho: enumTerm[i],
+      ho: enumTerm[lang][i],
     });
   }
   return list;
+}
+
+/**
+ * 公历转农历
+ * @param {int} Y 公历年
+ * @param {int} m 公历月
+ * @param {int} d 公历日
+ * @param {string} lang 语言
+ * @return {string} 节气
+ */
+export function getDay(Y, m, d, lang = 'cn') {
+  let month = 0;
+  for (let i=0; i < 24; i++) {
+    const day = getTerm(Y, i);
+    if (i%2==0) month++;
+    if (month === m && day === d) {
+      return enumTerm[lang][i];
+    }
+  }
+  return '';
 }

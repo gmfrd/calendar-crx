@@ -83,7 +83,7 @@ export default {
   data: () => {
     return {
       // 周枚举
-      enumWeek: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+      enumWeek: ['日', '一', '二', '三', '四', '五', '六'],
       // 最小年份
       minYear: 1950,
       // 最大年份
@@ -156,9 +156,9 @@ export default {
       // 日历节日字段初始化
       for (let i = 0; i < list.length; i++) {
         const v = list[i];
-        const gzInfo = ganzhi.getDay(v.Y, v.m, v.d, 'cn');
-        const lunarInfo = lunar.getDay(v.Y, v.m, v.d, 'cn');
-        const termInfo = term.getDay(v.Y, v.m, v.d, 'cn');
+        const gzInfo = ganzhi.getDay(v.Y, v.m, v.d, 'tw');
+        const lunarInfo = lunar.getDay(v.Y, v.m, v.d, 'tw');
+        const termInfo = term.getDay(v.Y, v.m, v.d, 'tw');
         v['status'] = 0; // 状态(0正常1假2班)
         v['animal'] = gzInfo.animal; // 生肖
         v['gzYear'] = gzInfo.gzYearName; // 干支年
@@ -179,7 +179,7 @@ export default {
       }
       // 获取每年的节假日信息
       for (const Y of yearArr) {
-        api.getCalRegionYearData('cn', Y).then((extArr) => {
+        api.getCalRegionYearData('hk', Y).then((extArr) => {
           if (! extArr) return;
           this.caDayArr.forEach((caDay) => {
             const key = `D${caDay.M}${caDay.D}`;
