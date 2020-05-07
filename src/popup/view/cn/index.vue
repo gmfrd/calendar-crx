@@ -29,7 +29,7 @@
           <div class="btn today" @click="toCalendar(today.Y, today.m, today.d)">返回今天</div>
         </div>
         <div class="box-week">
-          <div v-for="v in caWeekArr" :key="v" class="item">{{ enumWeek[v] }}</div>
+          <div v-for="v in caWeekArr" :key="v" class="item" :class="{on: [0, 6].includes(v)}">{{ enumWeek[v] }}</div>
         </div>
         <div class="row box-cal">
           <div
@@ -268,7 +268,6 @@ export default {
             top: 0;
             left: 0;
             z-index: 2;
-            background: red;
             border: 0;
             width: 100%;
             height: 100%;
@@ -321,6 +320,9 @@ export default {
       & > .item {
         flex: 1;
         text-align: center;
+        &.on {
+          color: #ed5564;
+        }
       }
     }
     .box-cal {

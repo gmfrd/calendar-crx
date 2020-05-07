@@ -7,6 +7,10 @@
       <CalTw v-if="region === 'tw'" :first-day-of-week="firstDayOfWeek" />
       <!-- 香港 -->
       <CalHk v-if="region === 'hk'" :first-day-of-week="firstDayOfWeek" />
+      <!-- 日本 -->
+      <CalJp v-if="region === 'jp'" :first-day-of-week="firstDayOfWeek" />
+      <!-- 美国 -->
+      <CalUs v-if="region === 'us'" :first-day-of-week="firstDayOfWeek" />
     </template>
     <!-- 设置页面 -->
     <Setting v-if="settingIsShow" @close="settingClose" />
@@ -22,6 +26,8 @@ import * as storage from '../lib/storage';
 import CalCn from './view/cn/index.vue';
 import CalTw from './view/tw/index.vue';
 import CalHk from './view/hk/index.vue';
+import CalJp from './view/jp/index.vue';
+import CalUs from './view/us/index.vue';
 import PartMenu from './view/_menu.vue';
 import Setting from './view/setting.vue';
 import About from './view/about.vue';
@@ -31,6 +37,8 @@ export default {
     CalCn,
     CalTw,
     CalHk,
+    CalJp,
+    CalUs,
     PartMenu,
     Setting,
     About,

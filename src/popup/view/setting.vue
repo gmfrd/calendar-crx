@@ -36,10 +36,9 @@ export default {
         {id: 'cn', name: '中国 / China'}, // 中国,简体
         {id: 'tw', name: '台灣 / Taiwan'}, // 台湾,繁体
         {id: 'hk', name: '香港 / Hongkong'}, // 香港,繁体
+        {id: 'jp', name: '日本 / Japan'}, // 日本,日本语
+        {id: 'us', name: 'United States / United States'}, // 美国,英语
         /*
-        - {id: 'cn', name: '中国大陆 / China'}, // 中国,汉语
-        - {id: 'us', name: 'United States / United States'}, // 美国,英语
-        - {id: 'jp', name: '日本 / Japan'}, // 日本,日本语
         - {id: 'in', name: 'भारत / India'}, // 印度,印地语
         - {id: 'br', name: 'Brasil / Brazil'}, // 巴西,葡萄牙语
         - {id: 'de', name: 'Deutschland / Germany'}, // 德国,德语
