@@ -200,7 +200,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .box-main {
   display: flex;
   width: 535px;
