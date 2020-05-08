@@ -3,7 +3,7 @@
  * @param {int} Y 公历年
  * @return {string} 年号
  */
-export function getJpNianHao(Y) {
+export function getYear(Y) {
   const daiArr = [
     {start: 1926, name: '昭和'},
     {start: 1989, name: '平成'},

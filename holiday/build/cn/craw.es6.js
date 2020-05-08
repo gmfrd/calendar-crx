@@ -19,33 +19,29 @@ async function getCNAll() {
       for (const v of res.data[0].almanac) {
         if (v.month == month) {
           const dKey = (month < 10 ? '0' : '') + month + '' + (v.day < 10 ? '0' : '') + v.day;
-          const event = [];
-          if (typeof v.term === 'string' && v.term !== '') {
-            event.push(v.term);
-          }
+          // 节日
+          let event = '';
           if (typeof v.value === 'string' && v.value !== '') {
-            event.push(v.value);
+            event = v.value;
           }
-          let status = 0;
-          if (['1', '2'].includes(v.status)) {
-            status = parseInt(v.status);
+          event = event.trim();
+          // 是否放假
+          let jia = 0;
+          if (['1', '2'].includes(v.jia)) {
+            jia = parseInt(v.jia);
           }
-          obj['D'+dKey] = {
-            event,
-            status, // 0正常1放假2调休
-            animal: v.animal,
-            gzYear: v.gzYear,
-            gzMonth: v.gzMonth,
-            gzDate: v.gzDate,
-            lMonth: v.lMonth,
-            lDate: v.lDate,
-            suit: typeof v.suit === 'string' ? v.suit : '',
-            avoid: typeof v.avoid === 'string' ? v.avoid : '',
-          };
+          // 保存数据
+          if (event !== '' || jia !== 0) {
+            obj['D'+dKey] = {
+              event: [event],
+              jia, // 0正常1放假2调休
+            };
+          }
         }
       }
     }
-    fs.writeFileSync('../../holiday/src/CN_'+year+'.yaml', Yaml.stringify(obj));
+    console.log(Object.keys(obj).length);
+    fs.writeFileSync('./holiday/src/cn/'+year+'.yaml', Yaml.stringify(obj));
   }
 }
 async function getData(url) {

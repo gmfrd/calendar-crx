@@ -30,11 +30,11 @@ async function getCNAll() {
       } else {
         obj[k] = {
           event: [event], // 事件
-          status: 0, // 0正常1放假2调休
+          jia: 0, // 0正常1放假2调休
         };
       }
     }
-    fs.writeFileSync('./holiday/src/US_'+y+'.yaml', Yaml.stringify(obj));
+    fs.writeFileSync('./holiday/src/us/'+y+'.yaml', Yaml.stringify(obj));
   }
 }
 async function getData(url) {

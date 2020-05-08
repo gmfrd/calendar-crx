@@ -1,0 +1,64 @@
+D0101:
+  event:
+    - 元日
+  jia: 0
+D0111:
+  event:
+    - 成人の日
+  jia: 0
+D0211:
+  event:
+    - 建国記念の日
+  jia: 0
+D0321:
+  event:
+    - 春分の日
+  jia: 0
+D0322:
+  event:
+    - 振替休日
+  jia: 0
+D0429:
+  event:
+    - 昭和の日
+  jia: 0
+D0503:
+  event:
+    - 憲法記念日
+  jia: 0
+D0504:
+  event:
+    - みどりの日
+  jia: 0
+D0505:
+  event:
+    - こどもの日
+  jia: 0
+D0719:
+  event:
+    - 海の日
+  jia: 0
+D0920:
+  event:
+    - 敬老の日
+  jia: 0
+D0923:
+  event:
+    - 秋分の日
+  jia: 0
+D1011:
+  event:
+    - 体育の日
+  jia: 0
+D1103:
+  event:
+    - 文化の日
+  jia: 0
+D1123:
+  event:
+    - 勤労感謝の日
+  jia: 0
+D1223:
+  event:
+    - 天皇誕生日
+  jia: 0

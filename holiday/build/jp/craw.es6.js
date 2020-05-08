@@ -27,22 +27,26 @@ async function getCNAll() {
         let domTd = $('.body-' + v);
         if (domTd.length) {
           domTd = domTd[0];
+          // 事件
           let event = $('.show_holiday', domTd).html();
-          event = typeof event === 'string' && event !== '' ? [entityToString(event)] : [];
+          event = typeof event === 'string' && event !== '' ? entityToString(event) : '';
+          event = event.trim();
+          // 农历日
           let gzDate = $('.show_eto', domTd).html();
           gzDate = typeof gzDate === 'string' ? entityToString(gzDate) : '';
+          // 六曜
           let liuYao = $('.show_rokuyou', domTd).html();
           liuYao = typeof liuYao === 'string' ? entityToString(liuYao) : '';
-          obj[`D${M}${D}`] = {
-            event, // 事件
-            status: 0, // 0正常1放假2调休
-            gzDate, // 干支日
-            liuYao, // 六曜
-          };
+          if (event !== '') {
+            obj[`D${M}${D}`] = {
+              event: [event], // 事件
+              jia: 0, // 0正常1放假2调休
+            };
+          }
         }
       }
     }
-    fs.writeFileSync('./holiday/src/JP_'+y+'.yaml', Yaml.stringify(obj));
+    fs.writeFileSync('./holiday/src/jp/'+y+'.yaml', Yaml.stringify(obj));
   }
 }
 async function getData(url) {
