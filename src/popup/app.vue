@@ -1,51 +1,21 @@
 <template>
   <div class="app">
-    <div class="aaa">
-      <div class="btn btn1">今天</div>
-      <div class="btn btn2">今天</div>
-    </div>
-    <template v-if="calIsShow">
-      <!-- 中国 -->
-      <CalCn v-if="region === 'cn'" :first-day-of-week="firstDayOfWeek" />
-      <!-- 台湾 -->
-      <CalTw v-if="region === 'tw'" :first-day-of-week="firstDayOfWeek" />
-      <!-- 香港 -->
-      <CalHk v-if="region === 'hk'" :first-day-of-week="firstDayOfWeek" />
-      <!-- 日本 -->
-      <CalJp v-if="region === 'jp'" :first-day-of-week="firstDayOfWeek" />
-      <!-- 美国 -->
-      <CalUs v-if="region === 'us'" :first-day-of-week="firstDayOfWeek" />
-    </template>
+    <!-- 日历页面 -->
+    <PageCalendar v-if="calIsShow" :region="region" :first-day-of-week="firstDayOfWeek" @moreBtnClick="openPageSetting" />
     <!-- 设置页面 -->
-    <Setting v-if="settingIsShow" @close="settingClose" />
-    <!-- 关于页面 -->
-    <About v-if="aboutIsShow" @close="aboutClose" />
-    <!-- 设置按钮 -->
-    <PartMenu @toSetting="settingIsShow = true; calIsShow = false;" @toAbout="aboutIsShow = true; calIsShow = false;" />
+    <PageSetting v-if="settingIsShow" @close="settingClose" />
   </div>
 </template>
 
 <script>
 import * as storage from '../lib/storage';
-import CalCn from './view/cn/index.vue';
-import CalTw from './view/tw/index.vue';
-import CalHk from './view/hk/index.vue';
-import CalJp from './view/jp/index.vue';
-import CalUs from './view/us/index.vue';
-import PartMenu from './view/_menu.vue';
-import Setting from './view/setting.vue';
-import About from './view/about.vue';
+import PageCalendar from './view/calendar/index.vue';
+import PageSetting from './view/setting/index.vue';
 
 export default {
   components: {
-    CalCn,
-    CalTw,
-    CalHk,
-    CalJp,
-    CalUs,
-    PartMenu,
-    Setting,
-    About,
+    PageCalendar,
+    PageSetting,
   },
   data: () => {
     return {
@@ -69,7 +39,6 @@ export default {
     } else {
       this.calIsShow = true;
     }
-    this.calIsShow = false;
   },
   methods: {
     // 初始化配置
@@ -81,16 +50,16 @@ export default {
       const firstDayOfWeek = storage.getItem('setting.firstDayOfWeek');
       this.firstDayOfWeek = parseInt(firstDayOfWeek !== false ? firstDayOfWeek.data : 0);
     },
-    // 配置页面关闭
+    // 打开设置页面
+    openPageSetting() {
+      this.calIsShow = false;
+      this.settingIsShow = true;
+    },
+    // 关闭设置页面
     settingClose() {
       // 初始化配置
       this.initSetting();
       this.settingIsShow = false;
-      this.calIsShow = true;
-    },
-    // 关于页面关闭
-    aboutClose() {
-      this.aboutIsShow = false;
       this.calIsShow = true;
     },
   },

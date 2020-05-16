@@ -43,14 +43,14 @@ export async function getCalRegionYearData(region, Y, force = false) {
 
 // 获取年份信息
 export async function getCalRegionYearDataDo(region, Y) {
-  region = region.toUpperCase();
+  region = region.toLowerCase();
   // 键名
   const cacheKey = `CAL_${region}_${Y}`;
   return new Promise((resolve) => {
-    const url = `${API_URI}/${region}_${Y}.json`;
+    const url = `${API_URI}/${region}/${Y}.json`;
     fetch(url).then((res) => {
       res.json().then((data) => {
-        // 清除额外存储(保留60条,1.75M)
+        // 清除额外存储(保留200条,1.75M)
         storage.delLimitItem('CAL_', 200);
         // 保存该次值
         storage.setItem(cacheKey, data);

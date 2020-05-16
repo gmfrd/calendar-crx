@@ -43,3 +43,150 @@ a {
     }
   }
 }
+.g-button {
+  user-select: none;
+  font-size: 16px;
+  line-height: 28px;
+  height: 28px;
+  border: 1px solid rgb(29, 161, 242);
+  cursor: pointer;
+  text-align: center;
+  padding: 3px 10px;
+  color: rgb(29, 161, 242);
+  background-color: transparent;
+  transition: background-color 0.2s linear;
+  user-select: none;
+  border-radius: 2px;
+  &:hover {
+    background-color:rgba(29, 161, 242, 0.1);
+  }
+  &:active {
+    background-color:rgba(29, 161, 242, 0.2);
+  }
+}
+.g-button1 {
+  user-select: none;
+  font-size: 16px;
+  line-height: 28px;
+  height: 28px;
+  cursor: pointer;
+  text-align: center;
+  padding: 3px 20px;
+  color: #fff;
+  background-color: rgb(29, 161, 242);;
+  transition: background-color 0.2s linear;
+  user-select: none;
+  border-radius: 2px;
+  &:hover {
+    background-color:rgb(26, 145, 218);
+  }
+  &:active {
+    background-color:rgb(23, 129, 194);
+  }
+}
+.g-select-group {
+  background-color: rgb(245, 248, 250);
+  user-select: none;
+  transition: all 0.2s linear;
+  & > .label {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 4px 10px;
+  }
+  & > .g-select {
+    background: none;
+  }
+  &:hover {
+    background-color:rgba(29, 161, 242, 0.1);
+    & > .g-select {
+      background: none;
+    }
+  }
+}
+.g-select {
+  user-select: none;
+  position: relative;
+  min-width: 40px;
+  font-size: 18px;
+  line-height: 28px;
+  height: 28px;
+  border: 1px solid transparent;
+  border-bottom-color: rgb(101, 119, 134);
+  cursor: pointer;
+  text-align: center;
+  padding: 3px 10px;
+  padding-right: 20px;
+  color: #000;
+  background-color: transparent;
+  transition: all 0.2s linear;
+  border-radius: 2px;
+  & > .arrow {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    height: 0;
+    border: 5px solid transparent;
+    border-top-color: #80868b;
+  }
+  & > select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  &:hover {
+    background-color:rgba(29, 161, 242, 0.1);
+    border-bottom-color: rgb(29, 161, 242);
+  }
+}
+.g-arrow {
+  user-select: none;
+  padding: 8px;
+  border-bottom-color: rgb(29, 161, 242);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s linear;
+  & > i {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url(../icon/arrow-right-1.png);
+    background-size: contain;
+    transform: rotateY(180deg);
+  }
+  &:hover {
+    background-color:rgba(29, 161, 242, 0.1);
+  }
+  &:active {
+    background-color:rgba(29, 161, 242, 0.2);
+  }
+  &.right {
+    & > i {
+      transform: rotateY(0deg);
+    }
+  }
+  &.now {
+    & > i {
+      background-image: url(../icon/now.png);
+      transform: rotateY(0deg);
+    }
+  }
+  &.setting {
+    & > i {
+      background-image: url(../icon/setting.png);
+      transform: rotateY(0deg);
+    }
+  }
+  &.back {
+    & > i {
+      background-image: url(../icon/arrow-left.png);
+      transform: rotateY(0deg);
+    }
+  }
+}

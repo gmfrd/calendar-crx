@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div v-if="selectedDay" class="box-main" :class="{on: selectedDay.red !== '' }">
+    <div v-if="selectedDay" class="box-main">
       <div class="box-left">
         <div class="box-btn">
           <!-- 年份 -->
           <div class="select-group">
-            <div class="select">
+            <div class="g-select select">
               <div class="label">{{ caYear }}年</div>
-              <div class="open" />
+              <div class="arrow" />
               <select v-model="optionYear" @change="toCalendar(optionYear, optionMonth)">
                 <option v-for="v in optionYearArr" :key="v" :value="v">{{ v }}年</option>
               </select>
@@ -15,18 +15,22 @@
           </div>
           <!-- 月份 -->
           <div class="select-group">
-            <div class="btn arrow" @click="relativeCalendar(-1)"><i /></div>
-            <div class="select">
+            <div class="g-select select">
               <div class="label">{{ caMonth }}月</div>
-              <div class="open" />
+              <div class="arrow" />
               <select v-model="optionMonth" @change="toCalendar(optionYear, optionMonth)">
                 <option v-for="v in optionMonthArr" :key="v" :value="v">{{ v }}月</option>
               </select>
             </div>
-            <div class="btn arrow right" @click="relativeCalendar(1)"><i /></div>
           </div>
-          <!-- 今天 -->
-          <div class="btn today" @click="toCalendar(today.Y, today.m, today.d)">返回今天</div>
+          <!-- 分割 -->
+          <div class="split-line" />
+          <!-- 月份切换 -->
+          <div class="g-arrow" @click="relativeCalendar(-1)"><i /></div>
+          <div class="g-arrow now" @click="toCalendar(today.Y, today.m, today.d)"><i /></div>
+          <div class="g-arrow right" @click="relativeCalendar(1)"><i /></div>
+          <!-- 设置 -->
+          <div class="g-arrow setting"><i /></div>
         </div>
         <div class="box-week">
           <div v-for="v in caWeekArr" :key="v" class="item" :class="{on: [0, 6].includes(v)}">{{ enumWeek[v] }}</div>
@@ -52,14 +56,21 @@
               <div class="t1">{{ v.d }}</div>
               <div v-if="v.red === ''" class="t2">{{ v.lDate }}</div>
               <div v-else class="t2 on">{{ v.red }}</div>
+              <!-- 假/班 -->
+              <div v-if="v.status === 1" class="status jia">假</div>
+              <div v-if="v.status === 2" class="status ban">班</div>
+              <!--
               <div v-if="v.status === 1" class="icon jia" />
               <div v-if="v.status === 2" class="icon ban" />
+              -->
             </div>
           </div>
         </div>
+        <div class="box-event">
+          <div class="item"><i class="t1" />{{ selectedDay.gzYear }}年({{ selectedDay.animal }}年) {{ selectedDay.lMonth }}({{ selectedDay.gzMonth }}月) {{ selectedDay.lDate }}({{ selectedDay.gzDate }}日) {{ selectedDay.term }}</div>
+          <div v-for="(v,index) in selectedDay.event" :key="index" class="item"><i class="t2" />{{ v }}</div>
+        </div>
       </div>
-      <!-- 右侧当日信息卡片 -->
-      <PartDayCard class="box-right" :selected-day="selectedDay" />
     </div>
   </div>
 </template>
@@ -70,12 +81,8 @@ import * as ganzhi from '../../../lib/ganzhi';
 import * as lunar from '../../../lib/lunar';
 import * as term from '../../../lib/term';
 import * as api from '../../../lib/api';
-import PartDayCard from './_dayCard.vue';
 
 export default {
-  components: {
-    PartDayCard,
-  },
   props: {
     // 每周起始周几
     firstDayOfWeek: {type: Number, required: true},
@@ -203,118 +210,39 @@ export default {
 <style lang="scss" scoped>
 .box-main {
   display: flex;
-  width: 535px;
-  height: 435px;
-  border: 2px solid #37bc9b;
-  border-right: 0;
+  // width: 535px;
+  // height: 435px;
   .box-left {
     box-sizing: border-box;
-    padding: 0 10px 10px 10px;
-    width: 405px;
+    width: 450px;
     .box-btn {
+      user-select: none;
       display: flex;
-      height: 46px;
+      height: 50px;
       align-items: center;
-      & .btn {
-        font-size: 14px;
-        line-height: 24px;
-        height: 24px;
-        border: 1px solid #d8d8d8;
-        cursor: pointer;
-        text-align: center;
-        padding: 2px 10px;
-        color: #3c4043;
-        background-color: transparent;
-        transition: background-color 100ms linear;
-        &:hover {
-          background-color: #f1f3f4
-        }
-        &:focus {
-          background-color: #e8eaed
-        }
-        &:focus:hover {
-          background-color: #dadce0
-        }
-      }
+      background: #f5f8fa;
+      padding-left: 10px;
+      padding-right: 10px;
       & > .select-group {
         display: flex;
         margin-right: 10px;
-        & > .select {
-          position: relative;
-          min-width: 40px;
-          font-size: 14px;
-          line-height: 24px;
-          height: 24px;
-          border: 1px solid #999;
-          border-bottom-color: #d8d8d8;
-          border-right-color: #d8d8d8;
-          cursor: pointer;
-          text-align: center;
-          padding: 2px 10px;
-          padding-right: 20px;
-          color: #3c4043;
-          background-color: transparent;
-          transition: background-color 100ms linear;
-          & > .open {
-            position: absolute;
-            top: 12px;
-            right: 5px;
-            height: 0;
-            border: 5px solid transparent;
-            border-top-color: #80868b;
-          }
-          & > select {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            border: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-          }
-          &:hover {
-            background-color: #f1f3f4;
-            box-shadow: inset 1px 1px 0 0 #d8d8d8;
-          }
-          &:focus {
-            background-color: #e8eaed;
-          }
-          &:focus:hover {
-            background-color: #dadce0;
-          }
-        }
-        & > .arrow {
-          padding-left: 10px;
-          padding-right: 15px;
-          border-right-width: 0;
-          & > i {
-            display: block;
-            height: 0;
-            border: 5px solid transparent;
-            border-right-color: #80868b;
-            margin-top: 6px;
-          }
-          &.right {
-            padding-left: 15px;
-            padding-right: 10px;
-            border-right-width: 1px;
-            border-left-width: 0;
-            & > i {
-              border-color: transparent;
-              border-left-color: #80868b;
-            }
-          }
-        }
+      }
+      & > .split-line {
+        margin-left: auto;
       }
       & > .today {
-        margin-left: auto;
         margin-right: 0;
+      }
+      & > .g-arrow {
+        margin-left: 4px;
       }
     }
     .box-week {
+      user-select: none;
+      padding-left: 10px;
+      padding-right: 10px;
       height: 34px;
-      border-top: 1px solid #37bc9b;
+      border-top: 1px solid rgb(230, 236, 240);
       display: flex;
       align-items: center;
       & > .item {
@@ -326,25 +254,29 @@ export default {
       }
     }
     .box-cal {
+      user-select: none;
+      padding-left: 10px;
+      padding-right: 10px;
       & > .item {
         box-sizing: border-box;
-        width: 55px;
-        height: 55px;
+        width: 14.28%;
+        height: 54px;
         cursor: pointer;
-        transition: all 100ms linear;
-        border-top: 1px solid #c8cacc;
+        border-top: 1px solid rgb(230, 236, 240);
         & > .wrap {
           box-sizing: border-box;
           height: 100%;
-          border: 2px solid #fff;
+          border: 1px solid #fff;
           position: relative;
+          transition: background-color,border-color 0.1s linear;
           & > .t1 {
-            color: #bfbfbf;
+            color: rgba(0, 0, 0, 0.1);
             font-size: 20px;
             line-height: 24px;
             height: 24px;
             margin-top: 4px;
             text-align: center;
+            font-weight: bold;
           }
           & > .t2 {
             color: #bfbfbf;
@@ -354,6 +286,24 @@ export default {
             margin-top: 2px;
             text-align: center;
             overflow: hidden;
+          }
+          & > .status {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 16px;
+            height: 16px;
+            background: #ed5564;
+            background-size: contain;
+            color: #fff;
+            z-index: 1;
+            opacity: 0.1;
+            font-size: 12px;
+            line-height: 16px;
+            text-align: center;
+            &.ban {
+              background: #969799;
+            }
           }
           & > .icon {
             position: absolute;
@@ -365,20 +315,23 @@ export default {
             background-size: contain;
             color: #fff;
             z-index: 1;
-            opacity: 0.2;
+            opacity: 0.1;
             &.ban {
               background-image: url(./../../icon/ban.png);
             }
           }
           &.month {
             & > .t1 {
-              color: #000;
+              color: rgb(0, 0, 0);
             }
             & > .t2 {
               color: #333;
               &.on {
                 color: #ed5564;
               }
+            }
+            & > .status {
+              opacity: 1;
             }
             & > .icon {
               opacity: 1;
@@ -389,9 +342,12 @@ export default {
               }
             }
             &.today {
-              border-color: #fb0;
-              background: #fb0;
+              border-color: rgb(29, 161, 242);
+              background: rgb(29, 161, 242);
               & > .t1 {
+                color: #fff;
+              }
+              & > .t2 {
                 color: #fff;
               }
             }
@@ -405,17 +361,49 @@ export default {
             border-color: #f5f5f5;
           }
           &.selected {
-            border-color: #fb0;
+            border-color: rgb(29, 161, 242);
+            background-color:rgba(29, 161, 242, 0.1);
           }
           &:hover{
-            border-color: #fb0;
+            border-color: rgb(29, 161, 242);
+            background-color:rgba(29, 161, 242, 0.1);
+            &.month {
+              &.today {
+                background: rgb(26, 145, 218);
+                border-color: rgb(26, 145, 218);
+              }
+            }
+          }
+          &:active {
+            background-color:rgba(29, 161, 242, 0.2);
           }
         }
       }
     }
-  }
-  &.on {
-    border-color: #ed5564;
+    .box-event {
+      border-top: 1px solid rgb(230, 236, 240);
+      font-size: 14px;
+      line-height: 20px;
+      color: rgb(101, 119, 134);
+      padding: 6px 10px;
+      & > .item {
+        position: relative;
+        text-indent: 20px;
+        & > i {
+          position: absolute;
+          top: 2px;
+          left: 0;
+          display: block;
+          width: 16px;
+          height: 16px;
+          background: url(../../icon/calendar.png);
+          background-size: contain;
+          &.t2 {
+            background-image: url(../../icon/event.png);
+          }
+        }
+      }
+    }
   }
 }
 </style>
