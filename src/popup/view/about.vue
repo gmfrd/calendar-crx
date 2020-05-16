@@ -1,13 +1,18 @@
 <template>
   <div>
     <div class="page">
-      <h3 class="title">About</h3>
+      <h3 class="title">关于</h3>
       <div class="list">
         <div class="item">
           <div class="title">节假日历</div>
-          <div class="title">Version：v1.0.0</div>
-          <div class="title">Author：gaoming13</div>
-          <div class="title">Github：<a href="https://github.com/gaoming13" target="_blank">https://github.com/gaoming13</a></div>
+          <div class="title">节假日历 <code>v1.0.0</code></div>
+          <div class="title">介绍，提供最新中国节假日信息，支持农历日期显示。界面干净整洁，一目了然，随时了解日期安排</div>
+          <h3>支持网站</h3>
+          <div class="title">支持网址Github：<a href="https://github.com/gaoming13" target="_blank">https://github.com/gaoming13</a></div>
+          <h3>反馈和帮助</h3>
+          <div class="title">如果您有任何疑问，功能要求或报告BUG，请发邮件到wangersha2019@gmail.com。由于我们收到大量消息，因此我们不能保证所有消息都能得到答复。</div>
+          <h3>捐赠</h3>
+          <div>如果您喜欢本插件的话，希望您能慷慨捐赠，这会帮助开发工作并让我们改进服务</div>
         </div>
       </div>
       <div class="submit" @click="submit">Back to calendar</div>

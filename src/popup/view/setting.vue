@@ -4,7 +4,7 @@
       <h3 class="title">设置</h3>
       <div class="list">
         <div class="item">
-          <div class="title">地区</div>
+          <div class="title">节假日地区</div>
           <select v-model="region" class="select">
             <option v-for="v in enumRegion" :key="v.id" :value="v.id">{{ v.name }}</option>
           </select>
@@ -36,26 +36,22 @@ export default {
         {id: 'cn', name: '中国 / China'}, // 中国,简体
         {id: 'tw', name: '台灣 / Taiwan'}, // 台湾,繁体
         {id: 'hk', name: '香港 / Hongkong'}, // 香港,繁体
+        {id: 'mo', name: '澳门 / Macao'}, // 澳门,繁体
         {id: 'jp', name: '日本 / Japan'}, // 日本,日本语
         {id: 'us', name: 'United States / United States'}, // 美国,英语
-        /*
-        - {id: 'in', name: 'भारत / India'}, // 印度,印地语
-        - {id: 'br', name: 'Brasil / Brazil'}, // 巴西,葡萄牙语
-        - {id: 'de', name: 'Deutschland / Germany'}, // 德国,德语
-        - {id: 'ru', name: 'Россия / Russia'}, // 俄罗斯,俄语
-        - {id: 'gb', name: 'United Kingdom / United Kiongdom'}, // 英国,英语
-        - {id: 'tr', name: 'Türkiye / Turkey'}, // 土耳其,土耳其语
+        {id: 'in', name: 'भारत / India'}, // 印度,印地语
+        {id: 'br', name: 'Brasil / Brazil'}, // 巴西,葡萄牙语
+        {id: 'de', name: 'Deutschland / Germany'}, // 德国,德语
+        {id: 'ru', name: 'Россия / Russia'}, // 俄罗斯,俄语
+        {id: 'gb', name: 'United Kingdom / United Kiongdom'}, // 英国,英语
+        {id: 'tr', name: 'Türkiye / Turkey'}, // 土耳其,土耳其语
         // 奥地利
         // 丹麦
-        // 英国
         // 荷兰
         // 芬兰
         // 比利时
         // 瑞典
         // 法国
-        // 香港
-        // 台湾
-        */
       ],
       // 星期枚举
       enumFirstDayOfWeek: [

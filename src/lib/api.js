@@ -16,8 +16,8 @@ export async function getCalRegionYearData(region, Y, force = false) {
     const res = storage.getItem(cacheKey);
     if (! force && res) {
       resolve(res.data);
-      // 数据过旧(1周),更新
-      if (Date.now() - res._addAt > 86400 * 7 * 1000) {
+      // 数据过旧(1天),更新
+      if (Date.now() - res._addAt > 86400 * 1000) {
         getCalRegionYearData(region, Y, true);
       }
       return;
@@ -51,7 +51,7 @@ export async function getCalRegionYearDataDo(region, Y) {
     fetch(url).then((res) => {
       res.json().then((data) => {
         // 清除额外存储(保留60条,1.75M)
-        storage.delLimitItem('CAL_', 60);
+        storage.delLimitItem('CAL_', 200);
         // 保存该次值
         storage.setItem(cacheKey, data);
         resolve(data);

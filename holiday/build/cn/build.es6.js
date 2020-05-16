@@ -8,10 +8,7 @@ for (let year = 1950; year <= 2050; year++) {
   const list = {};
   for (const key of keyArr) {
     const v = res[key];
-    list[key] = [
-      v.event,
-      v.jia,
-    ];
+    list[key] = v;
   }
   fs.writeFileSync('./holiday/dist/cn/'+year+'.json', JSON.stringify(list));
 }

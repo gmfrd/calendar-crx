@@ -183,13 +183,13 @@ export default {
           if (! extArr) return;
           this.caDayArr.forEach((caDay) => {
             const key = `D${caDay.M}${caDay.D}`;
-            if (extArr[key]) {
-              const ext = extArr[key];
-              caDay.red = ext[0].length ? ext[0][0] : ''; // 事件数组
-              caDay.event = ext[0]; // 事件
-              caDay.status = ext[1]; // 状态(0正常1假2班)
-              caDay.suit = ext[8]; // 宜
-              caDay.avoid = ext[9]; // 忌
+            if (typeof extArr[key] === 'string') {
+              const extTmp = extArr[key].split(';');
+              const status = parseInt(extTmp[0]);
+              const event = extTmp[1].split(',').filter((v) => v !== '');
+              caDay.status = status; // 状态(0正常1假2班)
+              caDay.red = event.length ? event[0] : ''; // 事件数组
+              caDay.event = event; // 事件
             }
           });
         });

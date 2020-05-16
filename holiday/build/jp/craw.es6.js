@@ -38,10 +38,7 @@ async function getCNAll() {
           let liuYao = $('.show_rokuyou', domTd).html();
           liuYao = typeof liuYao === 'string' ? entityToString(liuYao) : '';
           if (event !== '') {
-            obj[`D${M}${D}`] = {
-              event: [event], // 事件
-              jia: 0, // 0正常1放假2调休
-            };
+            obj[`D${M}${D}`] = `0;${event}`;
           }
         }
       }

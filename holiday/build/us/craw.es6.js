@@ -22,16 +22,14 @@ async function getCNAll() {
       M = (M < 10 ? '0' : '') + M;
       let D = d1.getDate();
       D = (D < 10 ? '0' : '') + D;
+      // 0正常1放假2调休
       let event = tr.find('.link_arrow').html();
       event = event.replace('&apos;', '\'').trim();
       const k = `D${M}${D}`;
-      if (obj[k]) {
-        obj[k].event.push(event);
+      if (typeof obj[k] === 'string') {
+        obj[k] += ',' + event;
       } else {
-        obj[k] = {
-          event: [event], // 事件
-          jia: 0, // 0正常1放假2调休
-        };
+        obj[k] = `0;${event}`;
       }
     }
     fs.writeFileSync('./holiday/src/us/'+y+'.yaml', Yaml.stringify(obj));

@@ -25,17 +25,14 @@ async function getCNAll() {
             event = v.value;
           }
           event = event.trim();
-          // 是否放假
+          // 是否放假(0正常1法定放假2调休3放假)
           let jia = 0;
-          if (['1', '2'].includes(v.jia)) {
-            jia = parseInt(v.jia);
+          if (['1', '2'].includes(v.status)) {
+            jia = parseInt(v.status);
           }
           // 保存数据
           if (event !== '' || jia !== 0) {
-            obj['D'+dKey] = {
-              event: [event],
-              jia, // 0正常1放假2调休
-            };
+            obj['D'+dKey] = `${jia};${event}`;
           }
         }
       }
