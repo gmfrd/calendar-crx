@@ -1,9 +1,9 @@
 <template>
   <div class="app">
     <!-- 日历页面 -->
-    <PageCalendar v-if="calIsShow" :region="region" :first-day-of-week="firstDayOfWeek" @moreBtnClick="openPageSetting" />
+    <PageCalendar v-if="calIsShow" :region="confRegion" :first-day-of-week="confFirstDayOfWeek" @toSetting="openPageSetting" />
     <!-- 设置页面 -->
-    <PageSetting v-if="settingIsShow" @close="settingClose" />
+    <PageSetting v-if="settingIsShow" @close="closePageSetting" />
   </div>
 </template>
 
@@ -19,22 +19,24 @@ export default {
   },
   data: () => {
     return {
-      // 地区
-      region: '',
-      // 每周开始于
-      firstDayOfWeek: 0,
+      // 配置.是否是否初始化过
+      confIsInit: true,
+      // 配置.地区
+      confRegion: '',
+      // 配置.每周开始于
+      confFirstDayOfWeek: '',
+
       // 日历是否显示
       calIsShow: false,
       // 设置页面是否显示
       settingIsShow: false,
-      // 关于页面是否显示
-      aboutIsShow: false,
     };
   },
   created() {
     // 初始化配置
-    this.initSetting();
-    if (this.region === '') {
+    this.initConf();
+    // 判断是否展示配置
+    if (! this.confIsInit) {
       this.settingIsShow = true;
     } else {
       this.calIsShow = true;
@@ -42,13 +44,16 @@ export default {
   },
   methods: {
     // 初始化配置
-    initSetting() {
-      // 地区
-      const region = storage.getItem('setting.region');
-      this.region = region !== false ? region.data : '';
-      // 每周开始于
-      const firstDayOfWeek = storage.getItem('setting.firstDayOfWeek');
-      this.firstDayOfWeek = parseInt(firstDayOfWeek !== false ? firstDayOfWeek.data : 0);
+    initConf() {
+      // 配置.是否是否初始化过
+      const confIsInit = storage.getItem('conf.isInit');
+      this.confIsInit = confIsInit !== false ? true : false;
+      // 配置.地区
+      const confRegion = storage.getItem('conf.region');
+      this.confRegion = confRegion !== false ? confRegion.data : 'cn';
+      // 配置.每周开始于
+      const confFirstDayOfWeek= storage.getItem('conf.firstDayOfWeek');
+      this.confFirstDayOfWeek = confFirstDayOfWeek !== false ? confFirstDayOfWeek.data : '0';
     },
     // 打开设置页面
     openPageSetting() {
@@ -56,9 +61,9 @@ export default {
       this.settingIsShow = true;
     },
     // 关闭设置页面
-    settingClose() {
+    closePageSetting() {
       // 初始化配置
-      this.initSetting();
+      this.initConf();
       this.settingIsShow = false;
       this.calIsShow = true;
     },

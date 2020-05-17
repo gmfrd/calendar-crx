@@ -85,6 +85,7 @@ a {
   }
 }
 .g-select-group {
+  position: relative;
   background-color: rgb(245, 248, 250);
   user-select: none;
   transition: all 0.2s linear;
@@ -95,6 +96,7 @@ a {
   }
   & > .g-select {
     background: none;
+    position: unset;
   }
   &:hover {
     background-color:rgba(29, 161, 242, 0.1);

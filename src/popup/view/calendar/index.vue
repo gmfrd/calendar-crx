@@ -29,7 +29,7 @@
         <div class="g-arrow now" @click="toCalendar(today.Y, today.m, today.d)"><i /></div>
         <div class="g-arrow right" @click="relativeCalendar(1)"><i /></div>
         <!-- 设置 -->
-        <div class="g-arrow setting" @click="moreBtnClick"><i /></div>
+        <div class="g-arrow setting" @click="toSetting"><i /></div>
       </div>
       <div class="box-week">
         <div v-for="v in caWeekArr" :key="v" class="item" :class="{on: [0, 6].includes(v)}">{{ enumWeek[v] }}</div>
@@ -87,7 +87,7 @@ export default {
     // 国家
     region: {type: String, required: true},
     // 每周起始周几
-    firstDayOfWeek: {type: Number, required: true},
+    firstDayOfWeek: {type: String, required: true},
   },
   data: () => {
     return {
@@ -138,7 +138,7 @@ export default {
         this.caMonth = month;
         this.optionYear = year;
         this.optionMonth = month;
-        const data = calendar.getCalendar(year, month, this.firstDayOfWeek);
+        const data = calendar.getCalendar(year, month, parseInt(this.firstDayOfWeek));
         // 获取并渲染节假日信息
         this.caDayArr = this.renderHoliday(data.dayArr);
         // 周菜单
@@ -206,8 +206,8 @@ export default {
       return list;
     },
     // 更多按钮点击
-    moreBtnClick() {
-      this.$emit('moreBtnClick');
+    toSetting() {
+      this.$emit('toSetting');
     },
   },
 };

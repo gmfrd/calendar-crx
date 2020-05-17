@@ -2,29 +2,31 @@
   <div>
     <div class="page">
       <div class="nav">
-        <div class="g-arrow back"><i /></div>
+        <div v-if="confIsInit" class="g-arrow back" @click="close"><i /></div>
         <div class="title">设置</div>
       </div>
       <div class="list">
+        <!-- 节假日地区 -->
         <div class="item">
           <div class="g-select-group">
             <div class="label">节假日地区</div>
             <div class="g-select select">
-              <div class="label">{{ getRegionLabel(region) }}</div>
+              <div class="label">{{ getRegionLabel(confRegion) }}</div>
               <div class="arrow" />
-              <select v-model="region">
+              <select v-model="confRegion">
                 <option v-for="v in enumRegion" :key="v.id" :value="v.id">{{ v.name }}</option>
               </select>
             </div>
           </div>
         </div>
+        <!-- 一周开始于 -->
         <div class="item">
           <div class="g-select-group">
             <div class="label">一周开始于</div>
             <div class="g-select select">
-              <div class="label">{{ getFirstDayOfWeekLabel(firstDayOfWeek) }}</div>
+              <div class="label">{{ getFirstDayOfWeekLabel(confFirstDayOfWeek) }}</div>
               <div class="arrow" />
-              <select v-model="firstDayOfWeek">
+              <select v-model="confFirstDayOfWeek">
                 <option v-for="v in enumFirstDayOfWeek" :key="v.id" :value="v.id">{{ v.name }}</option>
               </select>
             </div>
@@ -44,10 +46,13 @@ import * as storage from '../../../lib/storage';
 export default {
   data: () => {
     return {
-      // 地区
-      region: '',
-      // 每周开始于
-      firstDayOfWeek: 0,
+      // 配置.是否是否初始化过
+      confIsInit: true,
+      // 配置.地区
+      confRegion: '',
+      // 配置.每周开始于
+      confFirstDayOfWeek: '0',
+
       // 地区枚举
       enumRegion: [
         {id: 'cn', name: '中国 / China'}, // 中国,简体
@@ -83,14 +88,22 @@ export default {
     };
   },
   created() {
-    // 地区
-    const region = storage.getItem('setting.region');
-    this.region = region !== false ? region.data : 'cn';
-    // 每周开始于
-    const firstDayOfWeek = storage.getItem('setting.firstDayOfWeek');
-    this.firstDayOfWeek = (firstDayOfWeek !== false ? firstDayOfWeek.data : 0).toString();
+    // 初始化配置
+    this.initConf();
   },
   methods: {
+    // 初始化配置
+    initConf() {
+      // 配置.是否是否初始化过
+      const confIsInit = storage.getItem('conf.isInit');
+      this.confIsInit = confIsInit !== false ? true : false;
+      // 配置.地区
+      const confRegion = storage.getItem('conf.region');
+      this.confRegion = confRegion !== false ? confRegion.data : 'cn';
+      // 配置.每周开始于
+      const confFirstDayOfWeek= storage.getItem('conf.firstDayOfWeek');
+      this.confFirstDayOfWeek = confFirstDayOfWeek !== false ? confFirstDayOfWeek.data : '0';
+    },
     // 获取地区名称
     getRegionLabel(id) {
       const arr = this.enumRegion.filter((v) => v.id === id);
@@ -101,12 +114,19 @@ export default {
       const arr = this.enumFirstDayOfWeek.filter((v) => v.id === id);
       return arr.length ? arr[0].name : '';
     },
+    // 关闭设置页面
+    close() {
+      this.$emit('close');
+    },
     // 提交信息
     submit() {
-      // 地区
-      storage.setItem('setting.region', this.region);
-      // 每周开始于
-      storage.setItem('setting.firstDayOfWeek', this.firstDayOfWeek);
+      // 配置.是否是否初始化过
+      storage.setItem('conf.isInit', '1');
+      // 配置.地区
+      storage.setItem('conf.region', this.confRegion);
+      // 配置.每周开始于
+      storage.setItem('conf.firstDayOfWeek', this.confFirstDayOfWeek);
+      // 关闭设置页面
       this.$emit('close');
     },
   },
@@ -133,6 +153,7 @@ export default {
   & > .list {
     padding: 10px;
     & > .item {
+      margin-top: 10px;
       margin-bottom: 20px;
       & .select {
         text-align: left;
@@ -141,6 +162,7 @@ export default {
   }
   & > .bottom {
     display: flex;
+    padding: 10px;
     & > .g-button1 {
       margin-left: auto;
     }
