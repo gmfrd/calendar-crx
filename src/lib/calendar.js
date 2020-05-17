@@ -83,3 +83,59 @@ export function getDay(Y, m, d, w) {
     v, // 年月日
   };
 }
+
+// 获取多语言.年
+export function getLangYear(region) {
+  const arr = {
+    'default': '',
+    'cn': '年',
+    'tw': '年',
+    'hk': '年',
+    'mo': '年',
+    'jp': '年',
+    'us': '',
+  };
+  return region in arr ? arr[region] : arr['default'];
+}
+
+// 获取多语言.月枚举
+export function getLangEnumMonth(region) {
+  const arr = {
+    'default': ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    'cn': ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    'tw': ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    'hk': ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    'mo': ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    'jp': ['', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    'us': ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  };
+  return region in arr ? arr[region] : arr['default'];
+}
+
+// 获取多语言.周枚举
+export function getLangEnumWeek(region) {
+  const arr = {
+    'default': ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+    'cn': ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+    'tw': ['週日', '週一', '週二', '週三', '週四', '週五', '週六'],
+    'hk': ['週日', '週一', '週二', '週三', '週四', '週五', '週六'],
+    'mo': ['週日', '週一', '週二', '週三', '週四', '週五', '週六'],
+    'jp': ['日', '月', '火', '水', '木', '金', '土'],
+    'us': ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+  };
+  return region in arr ? arr[region] : arr['default'];
+}
+
+// 获取多语言.年
+export function getLangJiaBan(region) {
+  const arr = {
+    'default': ['假', '班'],
+    'cn': ['假', '班'],
+    'tw': ['假', '班'],
+    'hk': ['假', '班'],
+    'mo': ['假', '班'],
+    'jp': ['休', ''],
+    'us': ['', ''],
+  };
+  return region in arr ? arr[region] : arr['default'];
+}

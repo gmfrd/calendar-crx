@@ -1,27 +1,58 @@
 <template>
   <div>
-    <div v-if="selectedDay" class="box-main">
+    <div
+      v-if="selectedDay"
+      class="box-main"
+      :class="{
+        jp: region === 'jp',
+        us: region === 'us',
+      }"
+    >
       <div class="box-btn">
-        <!-- 年份 -->
-        <div class="select-group">
-          <div class="g-select select">
-            <div class="label">{{ caYear }}年</div>
-            <div class="arrow" />
-            <select v-model="optionYear" @change="toCalendar(optionYear, optionMonth)">
-              <option v-for="v in optionYearArr" :key="v" :value="v">{{ v }}年</option>
-            </select>
+        <template v-if="['us'].includes(region)">
+          <!-- 月份 -->
+          <div class="select-group">
+            <div class="g-select select">
+              <div class="label">{{ langEnumMonth[caMonth] }}</div>
+              <div class="arrow" />
+              <select v-model="optionMonth" @change="toCalendar(optionYear, optionMonth)">
+                <option v-for="v in optionMonthArr" :key="v" :value="v">{{ langEnumMonth[v] }}</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <!-- 月份 -->
-        <div class="select-group">
-          <div class="g-select select">
-            <div class="label">{{ caMonth }}月</div>
-            <div class="arrow" />
-            <select v-model="optionMonth" @change="toCalendar(optionYear, optionMonth)">
-              <option v-for="v in optionMonthArr" :key="v" :value="v">{{ v }}月</option>
-            </select>
+          <!-- 年份 -->
+          <div class="select-group">
+            <div class="g-select select">
+              <div class="label">{{ caYear }}{{ langYear }}</div>
+              <div class="arrow" />
+              <select v-model="optionYear" @change="toCalendar(optionYear, optionMonth)">
+                <option v-for="v in optionYearArr" :key="v" :value="v">{{ v }}{{ langYear }}</option>
+              </select>
+            </div>
           </div>
-        </div>
+        </template>
+        <template v-else>
+          <!-- 年份 -->
+          <div class="select-group">
+            <div class="g-select select">
+              <div class="label">{{ caYear }}{{ langYear }}</div>
+              <div class="arrow" />
+              <select v-model="optionYear" @change="toCalendar(optionYear, optionMonth)">
+                <option v-for="v in optionYearArr" :key="v" :value="v">{{ v }}{{ langYear }}</option>
+              </select>
+            </div>
+          </div>
+          <!-- 月份 -->
+          <div class="select-group">
+            <div class="g-select select">
+              <div class="label">{{ langEnumMonth[caMonth] }}</div>
+              <div class="arrow" />
+              <select v-model="optionMonth" @change="toCalendar(optionYear, optionMonth)">
+                <option v-for="v in optionMonthArr" :key="v" :value="v">{{ langEnumMonth[v] }}</option>
+              </select>
+            </div>
+          </div>
+        </template>
         <!-- 分割 -->
         <div class="split-line" />
         <!-- 月份切换 -->
@@ -31,9 +62,11 @@
         <!-- 设置 -->
         <div class="g-arrow setting" @click="toSetting"><i /></div>
       </div>
+      <!-- 周 -->
       <div class="box-week">
-        <div v-for="v in caWeekArr" :key="v" class="item" :class="{on: [0, 6].includes(v)}">{{ enumWeek[v] }}</div>
+        <div v-for="v in caWeekArr" :key="v" class="item" :class="{on: [0, 6].includes(v)}">{{ langEnumWeek[v] }}</div>
       </div>
+      <!-- 日历 -->
       <div class="row box-cal">
         <div
           v-for="(v, index) in caDayArr"
@@ -52,12 +85,19 @@
               selected: selectedDay && selectedDay.v === v.v
             }"
           >
+            <!-- 日期 -->
             <div class="t1">{{ v.d }}</div>
-            <div v-if="v.red === ''" class="t2">{{ v.lDate }}</div>
-            <div v-else class="t2 on">{{ v.red }}</div>
+            <!-- 备注 -->
+            <div v-if="v.red !== ''" class="t2 on">{{ v.red }}</div>
+            <template v-else>
+              <!-- 中国,台湾,香港,澳门 -->
+              <div v-if="['cn', 'tw', 'hk', 'mo'].includes(region)" class="t2">{{ v.lDate }}</div>
+              <!-- 日本 -->
+              <div v-else-if="['jp'].includes(region)" class="t2">{{ v.liuYao }}</div>
+            </template>
             <!-- 假/班 -->
-            <div v-if="v.status === 1" class="status jia">假</div>
-            <div v-if="v.status === 2" class="status ban">班</div>
+            <div v-if="v.status === 1" class="status jia">{{ langJiaBan[0] }}</div>
+            <div v-if="v.status === 2" class="status ban">{{ langJiaBan[1] }}</div>
             <!--
               <div v-if="v.status === 1" class="icon jia" />
               <div v-if="v.status === 2" class="icon ban" />
@@ -76,6 +116,8 @@ import * as calendar from '../../../lib/calendar';
 import * as ganzhi from '../../../lib/ganzhi';
 import * as lunar from '../../../lib/lunar';
 import * as term from '../../../lib/term';
+import * as liuYao from '../../../lib/liuYao';
+import * as jpNianHao from '../../../lib/jpNianHao';
 import * as api from '../../../lib/api';
 import PartCalendarBoxEvent from './_boxEvent.vue';
 
@@ -89,10 +131,16 @@ export default {
     // 每周起始周几
     firstDayOfWeek: {type: String, required: true},
   },
-  data: () => {
+  data: function() {
     return {
-      // 周枚举
-      enumWeek: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+      // 多语言.年
+      langYear: calendar.getLangYear(this.region),
+      // 多语言.月枚举
+      langEnumMonth: calendar.getLangEnumMonth(this.region),
+      // 多语言.周枚举
+      langEnumWeek: calendar.getLangEnumWeek(this.region),
+      // 多语言.假班
+      langJiaBan: calendar.getLangJiaBan(this.region),
       // 最小年份
       minYear: 1950,
       // 最大年份
@@ -165,21 +213,61 @@ export default {
       // 日历节日字段初始化
       for (let i = 0; i < list.length; i++) {
         const v = list[i];
-        const gzInfo = ganzhi.getDay(v.Y, v.m, v.d, 'cn');
-        const lunarInfo = lunar.getDay(v.Y, v.m, v.d, 'cn');
-        const termInfo = term.getDay(v.Y, v.m, v.d, 'cn');
         v['status'] = 0; // 状态(0正常1假2班)
-        v['animal'] = gzInfo.animal; // 生肖
-        v['gzYear'] = gzInfo.gzYearName; // 干支年
-        v['gzMonth'] = gzInfo.gzMonthName; // 干支月
-        v['gzDate'] = gzInfo.gzDayName; // 干支日
-        v['lMonth'] = lunarInfo.lunarMonthName; // 农历月
-        v['lDate'] = lunarInfo.lunarDayName; // 农历日
-        v['term'] = termInfo; // 节气
-        v['red'] = termInfo; // 红色内容
         v['event'] = []; // 节日
         v['suit'] = ''; // 宜
         v['avoid'] = ''; // 忌
+        v['red'] = '';
+        // 中国
+        if (['cn'].includes(this.region)) {
+          const gzInfo = ganzhi.getDay(v.Y, v.m, v.d, 'cn');
+          const lunarInfo = lunar.getDay(v.Y, v.m, v.d, 'cn');
+          const termInfo = term.getDay(v.Y, v.m, v.d, 'cn');
+          v['animal'] = gzInfo.animal; // 生肖
+          v['gzYear'] = gzInfo.gzYearName; // 干支年
+          v['gzMonth'] = gzInfo.gzMonthName; // 干支月
+          v['gzDate'] = gzInfo.gzDayName; // 干支日
+          v['lMonth'] = lunarInfo.lunarMonthName; // 农历月
+          v['lDate'] = lunarInfo.lunarDayName; // 农历日
+          v['term'] = termInfo; // 节气
+          v['red'] = termInfo; // 红色内容
+        }
+        // 台湾,香港,澳门
+        if (['tw', 'hk', 'mo'].includes(this.region)) {
+          const gzInfo = ganzhi.getDay(v.Y, v.m, v.d, 'tw');
+          const lunarInfo = lunar.getDay(v.Y, v.m, v.d, 'tw');
+          const termInfo = term.getDay(v.Y, v.m, v.d, 'tw');
+          v['animal'] = gzInfo.animal; // 生肖
+          v['gzYear'] = gzInfo.gzYearName; // 干支年
+          v['gzMonth'] = gzInfo.gzMonthName; // 干支月
+          v['gzDate'] = gzInfo.gzDayName; // 干支日
+          v['lMonth'] = lunarInfo.lunarMonthName; // 农历月
+          v['lDate'] = lunarInfo.lunarDayName; // 农历日
+          v['term'] = termInfo; // 节气
+          v['red'] = termInfo; // 红色内容
+        }
+        // 日本
+        if (['jp'].includes(this.region)) {
+          const gzInfo = ganzhi.getDay(v.Y, v.m, v.d, 'tw');
+          const lunarInfo = lunar.getDay(v.Y, v.m, v.d, 'tw');
+          const termInfo = term.getDay(v.Y, v.m, v.d, 'tw');
+          const liuYaoInfo = liuYao.getDay(lunarInfo.lunarMonth, lunarInfo.lunarDay);
+          const jpNianHaoInfo = jpNianHao.getYear(v.Y);
+          v['animal'] = gzInfo.animal; // 生肖
+          v['gzYear'] = gzInfo.gzYearName; // 干支年
+          v['gzMonth'] = gzInfo.gzMonthName; // 干支月
+          v['gzDate'] = gzInfo.gzDayName; // 干支日
+          v['lMonth'] = lunarInfo.lunarMonthName; // 农历月
+          v['lDate'] = lunarInfo.lunarDayName; // 农历日
+          v['term'] = termInfo; // 节气
+          v['liuYao'] = liuYaoInfo; // 六曜
+          v['jpNianHao'] = jpNianHaoInfo; // 日本年号
+          v['red'] = termInfo; // 红色内容
+        }
+        // 美国
+        if (['us'].includes(this.region)) {
+          // 无
+        }
         list[i] = v;
         // 日历中的年份
         if (! yearArr.includes(v.Y)) {
@@ -188,7 +276,7 @@ export default {
       }
       // 获取每年的节假日信息
       for (const Y of yearArr) {
-        api.getCalRegionYearData('cn', Y).then((extArr) => {
+        api.getCalRegionYearData(this.region, Y).then((extArr) => {
           if (! extArr) return;
           this.caDayArr.forEach((caDay) => {
             const key = `D${caDay.M}${caDay.D}`;
@@ -217,7 +305,7 @@ export default {
 .box-main {
   box-sizing: border-box;
   width: 450px;
-  .box-btn {
+  & > .box-btn {
     user-select: none;
     display: flex;
     height: 50px;
@@ -239,7 +327,7 @@ export default {
       margin-left: 4px;
     }
   }
-  .box-week {
+  & > .box-week {
     user-select: none;
     padding-left: 10px;
     padding-right: 10px;
@@ -255,7 +343,7 @@ export default {
       }
     }
   }
-  .box-cal {
+  & > .box-cal {
     user-select: none;
     padding-left: 10px;
     padding-right: 10px;
@@ -288,6 +376,9 @@ export default {
           margin-top: 2px;
           text-align: center;
           overflow: hidden;
+          word-break:break-all;
+          padding-left: 2px;
+          padding-right: 2px;
         }
         & > .status {
           position: absolute;
@@ -378,6 +469,42 @@ export default {
         }
         &:active {
           background-color:rgba(29, 161, 242, 0.2);
+        }
+      }
+    }
+  }
+  &.us {
+    & > .box-week {
+      & > .item {
+        &.on {
+          color: rgb(29, 161, 242);
+        }
+      }
+    }
+    & > .box-cal {
+      & > .item {
+        & > .wrap {
+          & > .t1 {
+            margin-top: 14px;
+          }
+          & > .t2 {
+            margin-top: 0;
+          }
+          &.month {
+            &.weekend {
+              & > .t1 {
+                color: rgb(29, 161, 242);
+              }
+            }
+            &.today {
+              & > .t1 {
+                color: #fff;
+              }
+              & > .t2 {
+                color: #fff;
+              }
+            }
+          }
         }
       }
     }

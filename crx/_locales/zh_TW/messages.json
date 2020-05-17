@@ -1,0 +1,18 @@
+{
+	"appName": {"message": "節假日曆 - 法定節假日顯示"},
+	"appShortName": {"message": "節假日曆"},
+	"appDescription": {"message": "支持傳統節日、法定節假日信息、農曆日期顯示，快速了解假期安排。"},
+	"L1001": {"message": "設置"},
+	"L1002": {"message": "國家/地區"},
+	"L1002cn": {"message": "中國 (中国)"},
+	"L1002tw": {"message": "台灣"},
+	"L1002hk": {"message": "香港"},
+	"L1002mo": {"message": "澳門"},
+	"L1002jp": {"message": "日本"},
+	"L1002us": {"message": "美國 (United States)"},
+	"L1003": {"message": "一周的第一天"},
+	"L1004": {"message": "保存"},
+	"L1101W0": {"message": "星期日"},
+	"L1101W1": {"message": "星期一"},
+	"L1101W6": {"message": "星期六"}
+}

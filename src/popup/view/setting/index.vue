@@ -1,20 +1,21 @@
 <template>
   <div>
     <div class="page">
+      <!-- 设置 -->
       <div class="nav">
         <div v-if="confIsInit" class="g-arrow back" @click="close"><i /></div>
-        <div class="title">设置</div>
+        <div class="title">{{ $crx.t('L1001') }}</div>
       </div>
       <div class="list">
         <!-- 节假日地区 -->
         <div class="item">
           <div class="g-select-group">
-            <div class="label">节假日地区</div>
+            <div class="label">{{ $crx.t('L1002') }}</div>
             <div class="g-select select">
-              <div class="label">{{ getRegionLabel(confRegion) }}</div>
+              <div class="label">{{ confRegion === '' ? '' : $crx.t('L1002' + confRegion) }}</div>
               <div class="arrow" />
               <select v-model="confRegion">
-                <option v-for="v in enumRegion" :key="v.id" :value="v.id">{{ v.name }}</option>
+                <option v-for="v in enumRegion" :key="v.id" :value="v.id">{{ $crx.t('L1002' + v.id) }}</option>
               </select>
             </div>
           </div>
@@ -22,19 +23,20 @@
         <!-- 一周开始于 -->
         <div class="item">
           <div class="g-select-group">
-            <div class="label">一周开始于</div>
+            <div class="label">{{ $crx.t('L1003') }}</div>
             <div class="g-select select">
-              <div class="label">{{ getFirstDayOfWeekLabel(confFirstDayOfWeek) }}</div>
+              <div class="label">{{ confFirstDayOfWeek === '' ? '' : $crx.t('L1101W' + confFirstDayOfWeek) }}</div>
               <div class="arrow" />
               <select v-model="confFirstDayOfWeek">
-                <option v-for="v in enumFirstDayOfWeek" :key="v.id" :value="v.id">{{ v.name }}</option>
+                <option v-for="v in enumFirstDayOfWeek" :key="v.id" :value="v.id">{{ $crx.t('L1101W' + v.id) }}</option>
               </select>
             </div>
           </div>
         </div>
       </div>
+      <!-- 保存 -->
       <div class="bottom">
-        <div class="g-button1" @click="submit">保存</div>
+        <div class="g-button1" @click="submit">{{ $crx.t('L1004') }}</div>
       </div>
     </div>
   </div>
@@ -55,12 +57,12 @@ export default {
 
       // 地区枚举
       enumRegion: [
-        {id: 'cn', name: '中国 / China'}, // 中国,简体
-        {id: 'tw', name: '台灣 / Taiwan'}, // 台湾,繁体
-        {id: 'hk', name: '香港 / Hongkong'}, // 香港,繁体
-        {id: 'mo', name: '澳门 / Macao'}, // 澳门,繁体
-        {id: 'jp', name: '日本 / Japan'}, // 日本,日本语
-        {id: 'us', name: 'United States / United States'}, // 美国,英语
+        {id: 'cn'}, // 中国,简体
+        {id: 'tw'}, // 台湾,繁体
+        {id: 'hk'}, // 香港,繁体
+        {id: 'mo'}, // 澳门,繁体
+        {id: 'jp'}, // 日本,日本语
+        {id: 'us'}, // 美国,英语
         // {id: 'in', name: 'भारत / India'}, // 印度,印地语
         // {id: 'br', name: 'Brasil / Brazil'}, // 巴西,葡萄牙语
         // {id: 'de', name: 'Deutschland / Germany'}, // 德国,德语
@@ -77,13 +79,9 @@ export default {
       ],
       // 星期枚举
       enumFirstDayOfWeek: [
-        {id: '0', name: '周日'},
-        {id: '1', name: '周一'},
-        {id: '2', name: '周二'},
-        {id: '3', name: '周三'},
-        {id: '4', name: '周四'},
-        {id: '5', name: '周五'},
-        {id: '6', name: '周六'},
+        {id: '6'}, // 周六
+        {id: '0'}, // 周日
+        {id: '1'}, // 周一
       ],
     };
   },
@@ -103,16 +101,6 @@ export default {
       // 配置.每周开始于
       const confFirstDayOfWeek= storage.getItem('conf.firstDayOfWeek');
       this.confFirstDayOfWeek = confFirstDayOfWeek !== false ? confFirstDayOfWeek.data : '0';
-    },
-    // 获取地区名称
-    getRegionLabel(id) {
-      const arr = this.enumRegion.filter((v) => v.id === id);
-      return arr.length ? arr[0].name : '';
-    },
-    // 获取星期名称
-    getFirstDayOfWeekLabel(id) {
-      const arr = this.enumFirstDayOfWeek.filter((v) => v.id === id);
-      return arr.length ? arr[0].name : '';
     },
     // 关闭设置页面
     close() {

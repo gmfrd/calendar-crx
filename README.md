@@ -20,9 +20,9 @@ cs	Czech
 da	Danish
 de	German
 el	Greek
-en	English
-en_GB	English (Great Britain)
-en_US	English (USA)
+- en	English
+- en_GB	English (Great Britain)
+- en_US	English (USA)
 es	Spanish
 es_419	Spanish (Latin America and Caribbean)
 et	Estonian
@@ -37,7 +37,7 @@ hr	Croatian
 hu	Hungarian
 id	Indonesian
 it	Italian
-ja	Japanese
+- ja	Japanese
 kn	Kannada
 ko	Korean
 lt	Lithuanian
@@ -63,8 +63,8 @@ th	Thai
 tr	Turkish
 uk	Ukrainian
 vi	Vietnamese
-zh_CN	Chinese (China)
-zh_TW	Chinese (Taiwan)
+- zh_CN	Chinese (China)
+- zh_TW	Chinese (Taiwan)
 
 ## Todo
 - background的生命周期有问题，未及时更新图表

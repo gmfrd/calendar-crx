@@ -1,0 +1,18 @@
+{
+	"appName": {"message": "祝日カレンダ"},
+	"appShortName": {"message": "祝日カレンダ"},
+	"appDescription": {"message": "伝統的な祭り、法定休日情報、旧暦の日付表示をサポートし、休日の手配をすばやく理解します。"},
+	"L1001": {"message": "設定"},
+	"L1002": {"message": "國"},
+	"L1002cn": {"message": "中国"},
+	"L1002tw": {"message": "台湾"},
+	"L1002hk": {"message": "香港"},
+	"L1002mo": {"message": "マカオ"},
+	"L1002jp": {"message": "日本"},
+	"L1002us": {"message": "米国"},
+	"L1003": {"message": "週の始まり"},
+	"L1004": {"message": "セーブ"},
+	"L1101W0": {"message": "土曜日"},
+	"L1101W1": {"message": "日曜日"},
+	"L1101W6": {"message": "日曜日"}
+}
