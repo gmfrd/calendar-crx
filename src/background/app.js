@@ -5,5 +5,5 @@ const today = calendar.getToday();
 
 // 设置图表
 chrome.browserAction.setIcon({
-  path: {'32': '../icon/cal_' + today.D + '.png'},
+  path: {'32': '../icon/cal_' + today.d + '.png'},
 });
