@@ -4,6 +4,7 @@ import request from 'request';
 import cheerio from 'cheerio';
 
 // 获取日本节日(https://uic.jp/calendar/1950/)
+// https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html
 // 参考：日本年号 http://www.benri.com/calendar/2050.html
 // 参考：日本的日历pdt https://happylilac.net/yw1605261802.html
 // 参考：2019年台日休假行事曆大統整 https://www.letsgojp.com/archives/344109/

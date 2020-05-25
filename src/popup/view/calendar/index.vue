@@ -81,23 +81,19 @@
               weekend: [0, 6].includes(v.w),
               jia: v.status === 1,
               ban: v.status === 2,
+              gon: v.status === 3,
               today: today && today.v === v.v,
               selected: selectedDay && selectedDay.v === v.v
             }"
           >
             <!-- 日期 -->
             <div class="t1">{{ v.d }}</div>
-            <!-- 备注 -->
-            <div v-if="v.red !== ''" class="t2 on">{{ v.red }}</div>
-            <template v-else>
-              <!-- 中国,台湾,香港,澳门 -->
-              <div v-if="['cn', 'tw', 'hk', 'mo'].includes(region)" class="t2">{{ v.lDate }}</div>
-              <!-- 日本 -->
-              <div v-else-if="['jp'].includes(region)" class="t2">{{ v.liuYao }}</div>
-            </template>
-            <!-- 假/班 -->
+            <!-- 摘要 -->
+            <div class="t2" :class="{on: v.shortIsOn}">{{ v.short }}</div>
+            <!-- 假/班/公 -->
             <div v-if="v.status === 1" class="status jia">{{ langJiaBan[0] }}</div>
             <div v-if="v.status === 2" class="status ban">{{ langJiaBan[1] }}</div>
+            <div v-if="v.status === 3" class="status gon">{{ langJiaBan[2] }}</div>
             <!--
               <div v-if="v.status === 1" class="icon jia" />
               <div v-if="v.status === 2" class="icon ban" />
@@ -213,11 +209,12 @@ export default {
       // 日历节日字段初始化
       for (let i = 0; i < list.length; i++) {
         const v = list[i];
-        v['status'] = 0; // 状态(0正常1假2班)
-        v['event'] = []; // 节日
+        v['status'] = 0; // 状态(0无1假2班3公务人员假)
+        v['short'] = ''; // 摘要
+        v['shortIsOn'] = false; // 摘要是否红色
+        v['long'] = ''; // 描述
         v['suit'] = ''; // 宜
         v['avoid'] = ''; // 忌
-        v['red'] = '';
         // 中国
         if (['cn'].includes(this.region)) {
           const gzInfo = ganzhi.getDay(v.Y, v.m, v.d, 'cn');
@@ -230,7 +227,12 @@ export default {
           v['lMonth'] = lunarInfo.lunarMonthName; // 农历月
           v['lDate'] = lunarInfo.lunarDayName; // 农历日
           v['term'] = termInfo; // 节气
-          v['red'] = termInfo; // 红色内容
+          if (termInfo !== '') {
+            v['short'] = termInfo;
+            v['shortIsOn'] = true;
+          } else {
+            v['short'] = v['lDate'];
+          }
         }
         // 台湾,香港,澳门
         if (['tw', 'hk', 'mo'].includes(this.region)) {
@@ -244,7 +246,12 @@ export default {
           v['lMonth'] = lunarInfo.lunarMonthName; // 农历月
           v['lDate'] = lunarInfo.lunarDayName; // 农历日
           v['term'] = termInfo; // 节气
-          v['red'] = termInfo; // 红色内容
+          if (termInfo !== '') {
+            v['short'] = termInfo;
+            v['shortIsOn'] = true;
+          } else {
+            v['short'] = v['lDate'];
+          }
         }
         // 日本
         if (['jp'].includes(this.region)) {
@@ -262,7 +269,12 @@ export default {
           v['term'] = termInfo; // 节气
           v['liuYao'] = liuYaoInfo; // 六曜
           v['jpNianHao'] = jpNianHaoInfo; // 日本年号
-          v['red'] = termInfo; // 红色内容
+          if (termInfo !== '') {
+            v['short'] = termInfo;
+            v['shortIsOn'] = true;
+          } else {
+            v['short'] = v['liuYao'];
+          }
         }
         // 美国
         if (['us'].includes(this.region)) {
@@ -279,14 +291,26 @@ export default {
         api.getCalRegionYearData(this.region, Y).then((extArr) => {
           if (! extArr) return;
           this.caDayArr.forEach((caDay) => {
-            const key = `D${caDay.M}${caDay.D}`;
-            if (typeof extArr[key] === 'string') {
-              const extTmp = extArr[key].split(';');
-              const status = parseInt(extTmp[0]);
-              const event = extTmp[1].split(',').filter((v) => v !== '');
-              caDay.status = status; // 状态(0正常1假2班)
-              caDay.red = event.length ? event[0] : ''; // 事件数组
-              caDay.event = event; // 事件
+            if (caDay.Y === Y) {
+              const key = `D${caDay.M}${caDay.D}`;
+              if (typeof extArr[key] === 'string') {
+                const extTmp = extArr[key].split(';');
+                const status = parseInt(extTmp[0]);
+                const short = typeof extTmp[1] === 'string' ? extTmp[1] : '';
+                let long = typeof extTmp[2] === 'string' ? extTmp[2] : '';
+                if (long === '') {
+                  long = short;
+                }
+                // 赋值
+                caDay.status = status;
+                if (short !== '') {
+                  caDay.short = short;
+                  caDay.shortIsOn = true;
+                }
+                if (long !== '') {
+                  caDay.long = long;
+                }
+              }
             }
           });
         });
@@ -397,6 +421,10 @@ export default {
           &.ban {
             background: #969799;
           }
+          &.gon {
+            color: #ed5564;
+            background: transparent;
+          }
         }
         & > .icon {
           position: absolute;
@@ -452,6 +480,10 @@ export default {
         &.ban {
           background: #f5f5f5;
           border-color: #f5f5f5;
+        }
+        &.gon {
+          background: #fff0f0;
+          border-color: #fff0f0;
         }
         &.selected {
           border-color: rgb(29, 161, 242);

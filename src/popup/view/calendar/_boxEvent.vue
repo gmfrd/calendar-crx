@@ -12,7 +12,7 @@
       </template>
       <!-- 美国 -->
       <div v-else-if="['us'].includes(region)" class="item"><i class="t1" :data-d="selectedDay.d" />{{ langEnumMonth[selectedDay.m] }} {{ selectedDay.d }}, {{ selectedDay.Y }}</div>
-      <div v-for="(v,index) in selectedDay.event" :key="index" class="item"><i class="t2" />{{ v }}</div>
+      <div v-if="selectedDay.long !== ''" class="item"><i class="t2" />{{ selectedDay.long }}</div>
     </div>
   </div>
 </template>

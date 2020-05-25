@@ -1,7 +1,8 @@
 # calendar-chrome-extension
 - 美国节日 https://www.calendar-365.com/holidays/2050.html
 - 日本节日 https://uic.jp/calendar/1950/
-- 日本放假官方 https://www.letsgojp.com/archives/344109/
+  - 官方 https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html
+  - 官方CSV https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv
 - 台湾放假官方 https://www.dgpa.gov.tw/informationlist?uid=41
 - 台湾放假 http://www.319papago.idv.tw/holiday/2016-hr/2016_HR.html
 - 香港放假 https://publicholidays.hk/zh/2019-dates/

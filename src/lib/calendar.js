@@ -129,12 +129,12 @@ export function getLangEnumWeek(region) {
 // 获取多语言.年
 export function getLangJiaBan(region) {
   const arr = {
-    'default': ['假', '班'],
-    'cn': ['假', '班'],
-    'tw': ['假', '班'],
-    'hk': ['假', '班'],
-    'mo': ['假', '班'],
-    'jp': ['休', ''],
+    'default': ['假', '班', '公'],
+    'cn': ['假', '班', '公'],
+    'tw': ['假', '班', '公'],
+    'hk': ['假', '班', '公'],
+    'mo': ['假', '班', '公'],
+    'jp': ['休', '', ''],
     'us': ['', ''],
   };
   return region in arr ? arr[region] : arr['default'];
