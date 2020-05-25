@@ -77,6 +77,7 @@
           <div
             class="wrap"
             :class="{
+              first: v.d === 1,
               month: v.Y === caYear && v.m === caMonth,
               weekend: [0, 6].includes(v.w),
               jia: v.status === 1,
@@ -440,6 +441,9 @@ export default {
           &.ban {
             background-image: url(./../../icon/ban.png);
           }
+        }
+        &.first {
+          border-left-color: rgb(230, 236, 240);
         }
         &.month {
           & > .t1 {
