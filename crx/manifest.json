@@ -22,8 +22,8 @@
   },
   "permissions": [
     "storage",
-    "*://gaoming13.oss-cn-hangzhou.aliyuncs.com/*"
+    "*://calendar-crx.diary8.com/*"
   ],
-  "default_locale": "zh_CN",
-  "homepage_url": "https://github.com/gaoming13/calendar-chrome-extension"
+  "default_locale": "en",
+  "homepage_url": "http://calendar-crx.diary8.com/"
 }
