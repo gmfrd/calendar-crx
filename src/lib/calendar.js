@@ -44,7 +44,7 @@ export function getCalendar(year, month, firstDayOfWeek = 1) {
   const dayArr = [];
   let varWeek = firstDayOfWeek;
   // 上一月
-  for (let i = m1DayNum - m2WeekDiff; i < m1DayNum; i++) {
+  for (let i = m1DayNum - m2WeekDiff + 1; i <= m1DayNum; i++) {
     dayArr.push(getDay(m1YearMonth.year, m1YearMonth.month, i, varWeek));
     varWeek = (varWeek + 1) % 7;
   }
