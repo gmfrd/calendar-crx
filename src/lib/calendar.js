@@ -5,7 +5,10 @@ export function getToday() {
   const month = now.getMonth() + 1;
   const day = now.getDate();
   const week = now.getDay();
-  return getDay(year, month, day, week);
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  const second = now.getSeconds();
+  return getDay(year, month, day, week, hour, minute, second);
 }
 
 // 获取相对年份月份
@@ -69,9 +72,12 @@ export function getCalendar(year, month, firstDayOfWeek = 1) {
 }
 
 // 获取某天的信息
-export function getDay(Y, m, d, w) {
+export function getDay(Y, m, d, w, h = 0, i = 0, s = 0) {
   const M = (m < 10 ? '0' : '') + m;
   const D = (d < 10 ? '0' : '') + d;
+  const H = (h < 10 ? '0' : '') + h;
+  const I = (i < 10 ? '0' : '') + i;
+  const S = (s < 10 ? '0' : '') + s;
   const v = `${Y}${M}${D}`;
   return {
     Y, // 年
@@ -81,6 +87,12 @@ export function getDay(Y, m, d, w) {
     M, // 月(带0)
     D, // 日(带0)
     v, // 年月日
+    h,
+    H,
+    i,
+    I,
+    s,
+    S,
   };
 }
 
