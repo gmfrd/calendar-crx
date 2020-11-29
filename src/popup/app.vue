@@ -75,36 +75,4 @@ export default {
 .app {
   position: relative;
 }
-.aaa {
-  margin-left: 100px;
-  margin-top: 100px;
-  display: flex;
-  .btn {
-    font-size: 14px;
-    line-height: 36px;
-    padding: 0 8px;
-    color: #1a73e8;
-    background-color: transparent;
-    border-radius: 3px;
-    background: transparent;
-    cursor: pointer;
-    transition: background-color 15ms linear;
-    user-select: none;
-    &:hover {
-      background-color: rgba(28, 116, 233, 0.04);
-    }
-    &:active {
-      background-color: rgba(28, 116, 233, 0.16);
-      transition: background-color 200ms linear;
-    }
-    &.btn2 {
-      &:hover {
-        background-color: rgba(95, 99, 104, 0.04);
-      }
-      &:active {
-        background-color: rgba(95, 99, 104, 0.16);
-      }
-    }
-  }
-}
 </style>

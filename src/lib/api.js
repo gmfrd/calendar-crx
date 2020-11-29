@@ -16,8 +16,8 @@ export async function getCalRegionYearData(region, Y, force = false) {
     const res = storage.getItem(cacheKey);
     if (! force && res) {
       resolve(res.data);
-      // 数据过旧(1天),更新
-      if (Date.now() - res._addAt > 86400 * 1000) {
+      // 数据过旧(1分钟),更新
+      if (Date.now() - res._addAt > 60 * 1000) {
         getCalRegionYearData(region, Y, true);
       }
       return;
