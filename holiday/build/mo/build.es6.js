@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Yaml from 'yaml';
 
-for (let year = 2009; year <= 2021; year++) {
+for (let year = 2009; year <= 2022; year++) {
   const file = fs.readFileSync('./holiday/src/mo/'+year+'.yaml', 'utf8');
   const res = Yaml.parse(file);
   const keyArr = Object.keys(res);
