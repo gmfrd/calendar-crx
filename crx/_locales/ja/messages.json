@@ -1,7 +1,7 @@
 {
 	"appName": {"message": "祝日カレンダ"},
 	"appShortName": {"message": "祝日カレンダ"},
-	"appDescription": {"message": "伝統的な祭り、法定休日情報、旧暦の日付表示をサポートし、休日の手配をすばやく理解します。"},
+	"appDescription": {"message": "簡潔で実用的なカレンダー。"},
 	"L1001": {"message": "設定"},
 	"L1002": {"message": "國"},
 	"L1002cn": {"message": "中国"},

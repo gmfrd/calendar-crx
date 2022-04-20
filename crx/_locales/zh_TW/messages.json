@@ -1,7 +1,7 @@
 {
-	"appName": {"message": "日曆 - 法定節假日顯示"},
+	"appName": {"message": "節假日曆"},
 	"appShortName": {"message": "節假日曆"},
-	"appDescription": {"message": "支持傳統節日、法定節假日信息、農曆日期顯示，快速了解假期安排。"},
+	"appDescription": {"message": "一款簡潔實用的日曆。"},
 	"L1001": {"message": "設置"},
 	"L1002": {"message": "國家/地區"},
 	"L1002cn": {"message": "中國 (中国)"},

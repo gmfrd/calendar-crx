@@ -1,7 +1,7 @@
 {
-	"appName": {"message": "Holiday Calendar - Holiday Display"},
+	"appName": {"message": "Holiday Calendar"},
 	"appShortName": {"message": "Holiday Calendar"},
-	"appDescription": {"message": "Support holiday information display, quickly understand the holiday schedule."},
+	"appDescription": {"message": "It's a simple and practical calendar."},
 	"L1001": {"message": "Settings"},
 	"L1002": {"message": "Country"},
 	"L1002cn": {"message": "China (中国)"},

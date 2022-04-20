@@ -1,7 +1,7 @@
 {
-	"appName": {"message": "日历 - 法定节假日显示"},
+	"appName": {"message": "节假日历"},
 	"appShortName": {"message": "节假日历"},
-	"appDescription": {"message": "支持传统节日、法定节假日信息、农历日期显示，快速了解假期安排。"},
+	"appDescription": {"message": "一款简洁实用的日历，哪天放假哪天补假一目了然。"},
 	"L1001": {"message": "设置"},
 	"L1002": {"message": "国家/地区"},
 	"L1002cn": {"message": "中国"},

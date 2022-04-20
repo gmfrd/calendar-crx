@@ -47,7 +47,7 @@ export async function getCalRegionYearDataDo(region, Y) {
   // 键名
   const cacheKey = `CAL_${region}_${Y}`;
   return new Promise((resolve) => {
-    const url = `${API_URI}/${region}/${Y}.json`;
+    const url = `${API_URI}/${region}/${Y}.json?r=${Date.now()}`;
     fetch(url).then((res) => {
       res.json().then((data) => {
         // 清除额外存储(保留200条,1.75M)
