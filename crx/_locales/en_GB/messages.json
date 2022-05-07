@@ -1,7 +1,7 @@
 {
 	"appName": {"message": "Holiday Calendar"},
 	"appShortName": {"message": "Holiday Calendar"},
-	"appDescription": {"message": "It's a simple and practical calendar."},
+	"appDescription": {"message": "It's simple and functional."},
 	"L1001": {"message": "Settings"},
 	"L1002": {"message": "Country"},
 	"L1002cn": {"message": "China (中国)"},
