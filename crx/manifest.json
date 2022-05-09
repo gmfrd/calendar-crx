@@ -21,7 +21,6 @@
     "page": "dist/background.html"
   },
   "permissions": [
-    "storage",
     "*://calendar-crx.diary8.com/*"
   ],
   "default_locale": "en",
