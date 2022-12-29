@@ -67,6 +67,14 @@ vi	Vietnamese
 - zh_CN	Chinese (China)
 - zh_TW	Chinese (Taiwan)
 
+## 日历数据维护
+- 更新cn日历：`node holiday/build/cn/craw.js`
+- 更新hk日历：需人工查阅并修改
+- 更新jp日历：`node holiday/build/jp/craw.js`
+- 更新mo日历：需人工查阅并修改
+- 更新tw日历：需人工查阅并修改
+- 更新us日历：`node holiday/build/us/craw.js`
+
 ## Todo
 - background的生命周期有问题，未及时更新图表
 - popup页面的hover有明显迟滞现象
