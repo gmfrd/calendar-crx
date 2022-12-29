@@ -7,21 +7,19 @@ setInterval(function() {
 
   // 报时
   if (today.i === 59 && today.s >= 40) {
-    chrome.browserAction.setIcon({
+    chrome.action.setIcon({
       path: {'32': '../icon/alert.png'},
     });
-    chrome.browserAction.setBadgeText({text: today.S});
+    chrome.action.setBadgeText({text: today.S});
   } else if (today.i === 0 && today.s <= 20) {
-    chrome.browserAction.setIcon({
+    chrome.action.setIcon({
       path: {'32': '../icon/alert.png'},
     });
-    chrome.browserAction.setBadgeText({text: today.H + ':00'});
+    chrome.action.setBadgeText({text: today.H + ':00'});
   } else {
-    chrome.browserAction.setIcon({
+    chrome.action.setIcon({
       path: {'32': '../icon/cal_' + today.d + '.png'},
     });
-    chrome.browserAction.setBadgeText({text: ''});
+    chrome.action.setBadgeText({text: ''});
   }
 }, 1000);
-
-console.log('12313');

@@ -1,7 +1,7 @@
 {
   "name": "__MSG_appName__",
-  "manifest_version": 2,
-  "version": "1.0.4",
+  "manifest_version": 3,
+  "version": "3.0.0",
   "description" : "__MSG_appDescription__",
   "short_name": "__MSG_appShortName__",
   "icons": {
@@ -9,18 +9,18 @@
     "48": "icon/logo-48.png",
     "128": "icon/logo-128.png"
   },
-  "browser_action": {
+  "action": {
     "default_title": "__MSG_appName__",
     "default_icon": {
       "16": "icon/logo-16.png",
       "32": "icon/logo-32.png"
     },
-    "default_popup": "dist/popup.html"
+    "default_popup": "dist-popup/index.html"
   },
   "background": {
-    "page": "dist/background.html"
+    "service_worker": "dist-background/index.js"
   },
-  "permissions": [
+  "host_permissions": [
     "*://calendar-crx.diary8.com/*"
   ],
   "default_locale": "en",

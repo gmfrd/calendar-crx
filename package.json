@@ -5,8 +5,9 @@
   "repository": "https://github.com/gaoming13/calendar-chrome-extension",
   "scripts": {
     "lint": "eslint --ext .js,.vue .",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --config ./webpack.config.js",
-    "build": "cross-env NODE_ENV=production webpack --progress --config ./webpack.config.js"
+    "dev-popup": "cross-env NODE_ENV=development webpack-dev-server --progress --config ./webpack.config.popup.js",
+    "build-popup": "cross-env NODE_ENV=production webpack --progress --config ./webpack.config.popup.js",
+    "build-background": "cross-env NODE_ENV=production webpack --progress --config ./webpack.config.background.js"
   },
   "author": "gaoming13",
   "license": "MIT",
