@@ -1,7 +1,7 @@
 {
   "name": "__MSG_appName__",
   "manifest_version": 3,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description" : "__MSG_appDescription__",
   "short_name": "__MSG_appShortName__",
   "icons": {
@@ -24,5 +24,5 @@
     "*://calendar-crx.diary8.com/*"
   ],
   "default_locale": "en",
-  "homepage_url": "http://calendar-crx.diary8.com/"
+  "homepage_url": "http://calendar-crx.diary8.com/index.html"
 }
